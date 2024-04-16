@@ -25,3 +25,7 @@
 + 게시글 작성 및 수정,삭제
 #### 댓글
 + 게시글에 댓글 작성
+
+### 📃 ERD 설계
+![FirstProject](https://github.com/leehagjoon/SuperCoding-FirstPj-Be./assets/105399835/10a7e2ad-ee62-4efe-96c6-82de4e6dd181)
+
