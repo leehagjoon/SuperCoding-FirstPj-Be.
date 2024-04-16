@@ -1,0 +1,51 @@
+CREATE TABLE `MEMBER` (
+	`member_id`	INT	NOT NULL,
+	`email`	VARCHAR(25)	NOT NULL,
+	`password`	VARCHAR(50)	NOT NULL,
+	`author`	VARCHAR(10)	NOT NULL
+);
+
+CREATE TABLE `POST` (
+	`post_id`	INT	NOT NULL,
+	`member_id`	INT	NOT NULL,
+	`title`	VARCHAR(50)	NOT NULL,
+	`content`	TEXT	NOT NULL,
+	`author`	VARCHAR(10)	NOT NULL,
+	`create_at`	DATETIME(6)	NOT NULL
+);
+
+CREATE TABLE `COMMENTS` (
+	`comments_id`	INT	NOT NULL,
+	`post_id`	INT	NOT NULL,
+	`content`	VARCHAR(255)	NOT NULL,
+	`author`	VARCHAR(10)	NOT NULL,
+	`created_at`	DATETIME(6)	NOT NULL
+);
+
+ALTER TABLE `MEMBER` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
+	`member_id`
+);
+
+ALTER TABLE `POST` ADD CONSTRAINT `PK_POST` PRIMARY KEY (
+	`post_id`,
+	`member_id`
+);
+
+ALTER TABLE `COMMENTS` ADD CONSTRAINT `PK_COMMENTS` PRIMARY KEY (
+	`comments_id`,
+	`post_id`
+);
+
+ALTER TABLE `POST` ADD CONSTRAINT `FK_MEMBER_TO_POST_1` FOREIGN KEY (
+	`member_id`
+)
+REFERENCES `MEMBER` (
+	`member_id`
+);
+
+ALTER TABLE `COMMENTS` ADD CONSTRAINT `FK_POST_TO_COMMENTS_1` FOREIGN KEY (
+	`post_id`
+)
+REFERENCES `POST` (
+	`post_id`
+);
