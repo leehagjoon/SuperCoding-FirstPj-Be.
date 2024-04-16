@@ -1,4 +1,4 @@
-package com.firstpj.api;
+package com.firstpj;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
