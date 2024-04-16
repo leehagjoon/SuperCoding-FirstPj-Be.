@@ -1,6 +1,7 @@
 package com.firstpj.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * packageName    : com.firstpj.config
