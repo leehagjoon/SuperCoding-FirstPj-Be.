@@ -1,5 +1,8 @@
 package com.firstpj.member.model;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.firstpj.jpa.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +20,20 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@JsonNaming(PropertyNamingStrategy.class)
 public class MemberRqModel {
+    private Integer memberId;
+    private String email;
+    private String password;
+    private String author;
+    private String role;
+
+    public MemberRqModel(MemberEntity memberEntity){
+        this.memberId=memberEntity.getMemberId();
+        this.email=memberEntity.getEmail();
+        this.password=memberEntity.getPassword();
+        this.author=memberEntity.getAuthor();
+        this.role=memberEntity.getRole();
+    }
+
 }
