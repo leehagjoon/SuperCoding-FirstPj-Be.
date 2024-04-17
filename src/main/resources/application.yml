@@ -16,6 +16,5 @@ spring:
       hibernate :
         format_sql : true
 
-  jwt:
-    secret-key-source: ${JWT_SECRET_KEY}
+
 
