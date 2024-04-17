@@ -1,14 +1,24 @@
 package com.firstpj.config;
 
 
+import com.firstpj.member.controller.filter.JwtAuthenticationFilter;
+import jwt.CustomAUthenticationEntryPoint;
+import jwt.CustomerAccessDeniedHandler;
+import jwt.JwtTokenProvider;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,7 +39,10 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -42,19 +55,23 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // 요청에 대한 접근 권한 설정
                 .requestMatchers("/resources/static/**", "/api/*", "/api/*/*").permitAll() // 정적 자원 및 특정 API 경로는 모두에게 허용
-                .requestMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger/**").permitAll() // Swagger 문서 관련 경로는 모두에게 허용
-                .anyRequest().authenticated(); // 그 외 모든 요청은 인증을 필요로 함
-//                .and()
-//                .exceptionHandling()
+                .anyRequest().authenticated() // 그 외 모든 요청은 인증을 필요로 함
+                .and()
+                .exceptionHandling()
 //                // 예외 처리 설정
-//                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // 인증 실패 시 처리를 위한 진입점 설정
-//                .accessDeniedHandler(new CustomerAccessDeniedHandler()) // 접근 거부 처리 핸들러 설정
-//                .and()
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // JWT 인증 필터 추가
+                .authenticationEntryPoint(new CustomAUthenticationEntryPoint()) // 인증 실패 시 처리를 위한 진입점 설정
+                .accessDeniedHandler(new CustomerAccessDeniedHandler()) // 접근 거부 처리 핸들러 설정
+                .and()
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // JWT 인증 필터 추가
 
         // 기타 필요한 설정 추가
 
         return http.build(); // HttpSecurity 설정을 기반으로 SecurityFilterChain 객체 생성 및 반환
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
     }
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

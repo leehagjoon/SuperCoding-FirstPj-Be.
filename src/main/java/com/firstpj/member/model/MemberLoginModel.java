@@ -1,15 +1,12 @@
 package com.firstpj.member.model;
 
-import com.firstpj.jpa.entity.MemberEntity;
-import com.firstpj.jpa.entity.RoleType;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * packageName    : com.firstpj.member.model
- * fileName       : MemberSignUp
+ * fileName       : MemberLoginModel
  * author         : hagjoon
  * date           : 2024-04-17
  * description    :
@@ -21,24 +18,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberSignUp {
+public class MemberLoginModel {
 
     private String email;
-
     private String password;
-
-    private String author;
-
-    private RoleType role;
-
-    @Builder
-    public MemberEntity toEntity(){
-        return MemberEntity.builder()
-                .email(email)
-                .password(password)
-                .author(author)
-                .role(RoleType.USER)
-                .build();
-    }
-
 }

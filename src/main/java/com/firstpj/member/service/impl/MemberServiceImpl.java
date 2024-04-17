@@ -2,12 +2,19 @@ package com.firstpj.member.service.impl;
 
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.repository.MemberRepository;
+import com.firstpj.member.model.MemberLoginModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
 import jakarta.transaction.Transactional;
+import jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +38,11 @@ public class MemberServiceImpl implements MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private  JwtTokenProvider jwtTokenProvider;
+
+    private final AuthenticationManager authenticationManager;
+
+
     @Override
     @CacheEvict(value = "comments",allEntries = true)
     public void deleteById(String id) {
@@ -39,28 +51,31 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean signup(MemberSignUp memberSignUp) {
-        String email = memberSignUp.getEmail();
-        String password = memberSignUp.getPassword();
-        String author = memberSignUp.getAuthor();
-
-        // 유효성 검사
-        if( email == null || email.isEmpty()){
-            return false; // 이름이 없으면 회원가입 실패
+    public Integer signup(MemberSignUp memberSignUp) throws Exception {
+        if (memberRepository.findByEmail(memberSignUp.getEmail()).isPresent()) {
+            throw new Exception("이미 존재하는 이메일입니다.");
         }
+        MemberEntity member = memberRepository.save(memberSignUp.toEntity());
+        member.encodePassword(passwordEncoder);
 
-        //비밀번호 암호화
-        String EncoderPassword = passwordEncoder.encode(password);
-
-        // 유저가 있으면 ID만 등록 아니면 유저도 만들기
-        MemberEntity member = memberRepository.findByEmail(email).orElseGet(() ->
-                memberRepository.save(MemberEntity.builder()
-                        .email(email)
-                        .password(EncoderPassword)
-                        .author(author)
-                        .build())
-        );
-        return true;
+        member.addUserAuthority();
+        return member.getMemberId();
     }
 
+    @Override
+    public String login(MemberLoginModel model) {
+        String email = model.getEmail();
+        String password = model.getPassword();
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email,password));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return jwtTokenProvider.createToken(email);
+    }
+
+    public String createToken(String email){
+        String token = jwtTokenProvider.createToken(email);
+        return token;
+    }
 }

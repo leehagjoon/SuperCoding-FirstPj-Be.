@@ -3,6 +3,7 @@ package com.firstpj.member.model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.MemberEntity;
+import com.firstpj.jpa.entity.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +27,7 @@ public class MemberRqModel {
     private String email;
     private String password;
     private String author;
-    private String role;
+    private RoleType role;
 
     public MemberRqModel(MemberEntity memberEntity){
         this.memberId=memberEntity.getMemberId();

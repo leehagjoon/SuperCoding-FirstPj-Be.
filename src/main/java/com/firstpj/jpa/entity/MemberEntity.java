@@ -2,6 +2,7 @@ package com.firstpj.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * packageName    : com.firstpj.api.member.entity
@@ -21,7 +22,10 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "member")
 public class MemberEntity {
-    @Id@Column(name = "member_id")@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @Column(name = "member_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
 
     @Column(name = "email",length = 25)
@@ -34,7 +38,15 @@ public class MemberEntity {
     private String author;
 
     @Column(name = "role",length = 30)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private RoleType role;
 
+    public void addUserAuthority(){
+        this.role = RoleType.USER;
+    }
+
+    public void encodePassword(PasswordEncoder passwordEncoder){
+        this.password = passwordEncoder.encode(password);
+    }
 
 }
