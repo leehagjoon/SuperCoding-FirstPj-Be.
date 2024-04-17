@@ -1,10 +1,7 @@
 package com.firstpj.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * packageName    : com.firstpj.api.member.entity
@@ -17,17 +14,19 @@ import lombok.Setter;
  * -----------------------------------------------------------
  * 2024-04-16        hagjoon       최초 생성
  */
-@Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
+@Entity
 @Table(name = "member")
 public class MemberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private int memberId;
+    private Integer memberId;
 
     @Column(name = "email")
     private String email;
@@ -41,4 +40,5 @@ public class MemberEntity {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private RoleType role;
+
 }

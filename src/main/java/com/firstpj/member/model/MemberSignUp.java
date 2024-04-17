@@ -1,11 +1,13 @@
-package com.firstpj.jpa.entity;
+package com.firstpj.member.model;
 
+import com.firstpj.jpa.entity.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
- * packageName    : com.firstpj.jpa.entity
- * fileName       : RoleType
+ * packageName    : com.firstpj.member.model
+ * fileName       : MemberSignUp
  * author         : hagjoon
  * date           : 2024-04-17
  * description    :
@@ -15,7 +17,12 @@ import lombok.Getter;
  * 2024-04-17        hagjoon       최초 생성
  */
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
-public enum RoleType {
-    USER
+public class MemberSignUp {
+
+    private String email;
+
+    private String password;
+
 }
