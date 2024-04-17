@@ -1,8 +1,10 @@
 package com.firstpj.member.service.impl;
 
+import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,4 +22,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
+
+    private final MemberRepository memberRepository;
+
+    @CacheEvict(value = "comments",allEntries = true)
+    public void deleteById(String id) {
+        Integer idInt=Integer.parseInt(id);
+        memberRepository.deleteById(idInt);
+    }
+
 }

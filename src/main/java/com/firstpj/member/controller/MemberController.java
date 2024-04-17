@@ -1,7 +1,8 @@
 package com.firstpj.member.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.firstpj.member.service.impl.MemberServiceImpl;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * packageName    : com.firstpj.api.member.controller
@@ -16,5 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class MemberController {
+
+    private final MemberServiceImpl memberService;
+
+    @DeleteMapping("/comments/{id}")
+    public String deleteCommentsByPathId(@PathVariable String id){
+        memberService.deleteById(id);
+        return "댓글이 삭제되었습니다.";
+    }
+
+    @DeleteMapping("/post/{id}")
+    public String deletePostByPathId(@PathVariable String id){
+        memberService.deleteById(id);
+        return "해당 글이 삭제 되었습니다.";
+    }
 }
