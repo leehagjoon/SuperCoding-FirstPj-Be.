@@ -42,7 +42,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,11 +56,6 @@ public class SecurityConfig {
                 // 요청에 대한 접근 권한 설정
                 .requestMatchers("/resources/static/**", "/api/*", "/api/*/*").permitAll() // 정적 자원 및 특정 API 경로는 모두에게 허용
                 .anyRequest().authenticated() // 그 외 모든 요청은 인증을 필요로 함
-                .and()
-                .exceptionHandling()
-//                // 예외 처리 설정
-                .authenticationEntryPoint(new CustomAUthenticationEntryPoint()) // 인증 실패 시 처리를 위한 진입점 설정
-                .accessDeniedHandler(new CustomerAccessDeniedHandler()) // 접근 거부 처리 핸들러 설정
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // JWT 인증 필터 추가
 

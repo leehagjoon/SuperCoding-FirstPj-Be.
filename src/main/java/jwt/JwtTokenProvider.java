@@ -28,8 +28,8 @@ import java.util.Date;
  * -----------------------------------------------------------
  * 2024-04-17        hagjoon       최초 생성
  */
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
     @Value("${jwt.secret-key-source}") // application.yml 에서 jwt.secret-key-source 값을 가져옴
@@ -99,6 +99,7 @@ public class JwtTokenProvider {
                 .setSigningKey(secretKey)
                 .parseClaimsJws(jwtToken)
                 .getBody();
+
         return claims.getSubject();
     }
 }
