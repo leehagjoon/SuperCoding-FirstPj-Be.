@@ -1,5 +1,7 @@
 package com.firstpj.member.service;
 
+import com.firstpj.member.model.MemberSignUp;
+
 /**
  * packageName    : com.firstpj.api.member.service
  * fileName       : MemberService
@@ -13,4 +15,5 @@ package com.firstpj.member.service;
  */
 public interface MemberService {
 
+    public boolean signup(MemberSignUp memberSignUp);
 }
