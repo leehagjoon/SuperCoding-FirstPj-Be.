@@ -2,7 +2,6 @@ package com.firstpj.config.security;
 
 
 import com.firstpj.jwt.JwtAuthenticationFilter;
-import com.firstpj.jwt.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

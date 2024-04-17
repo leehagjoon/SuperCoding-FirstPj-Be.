@@ -1,7 +1,8 @@
-package com.firstpj.jwt;
+package com.firstpj.config.security;
 
 import com.firstpj.member.model.CustomUserInfoModel;
 import io.jsonwebtoken.*;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -33,18 +34,16 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
-
-    @Value("${secret-key-source}")
-    private String secretKeySource;
     private String secretKey;
 
     private long tokenValidMillisecond = 1000L * 60 * 60;
 
     private final UserDetailsService userDetailsService;
 
+    @PostConstruct
     public void setUp(){
         secretKey = Base64.getEncoder()
-                .encodeToString(secretKeySource.getBytes());
+                .encodeToString("super-coding".getBytes());
     }
 
     public String resolveToken(HttpServletRequest request){

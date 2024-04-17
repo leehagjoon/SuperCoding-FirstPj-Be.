@@ -2,8 +2,7 @@ package com.firstpj.member.service.impl;
 
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.repository.MemberRepository;
-import com.firstpj.jwt.JwtUtil;
-import com.firstpj.member.model.CustomUserInfoModel;
+import com.firstpj.config.security.JwtUtil;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
@@ -11,15 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * packageName    : com.firstpj.api.member.service.impl

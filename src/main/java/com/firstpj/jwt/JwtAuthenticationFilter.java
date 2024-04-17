@@ -1,5 +1,6 @@
 package com.firstpj.jwt;
 
+import com.firstpj.config.security.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
