@@ -39,6 +39,11 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
 
+    private static final String[] AUTH_WHITELIST = {
+            "/api/**","/swagger-ui/**","/api-docs","/swagger-ui-custom.html",
+            "/swagger-ui.html","/v2/api-docs","/swagger/","/swagger-resources/"
+    };
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -52,6 +57,10 @@ public class SecurityConfig {
         http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling((exceptionHandling)-> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomerAccessDeniedHandler()));
+
+        http.authorizeHttpRequests(authorize ->authorize
+                .requestMatchers(AUTH_WHITELIST).permitAll()
+                .anyRequest().permitAll());
 
 
         return http.build(); // HttpSecurity 설정을 기반으로 SecurityFilterChain 객체 생성 및 반환

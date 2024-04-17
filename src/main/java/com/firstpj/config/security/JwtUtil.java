@@ -43,15 +43,11 @@ public class JwtUtil {
     @PostConstruct
     public void setUp(){
         secretKey = Base64.getEncoder()
-                .encodeToString("super-coding".getBytes());
+                .encodeToString("super-coding-FirstProject-Back-End".getBytes());
     }
 
     public String resolveToken(HttpServletRequest request){
-        String bearerToken = request.getHeader("Authorization");
-        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
-            return bearerToken.substring(7);
-        }
-        return null;
+        return request.getHeader("X-AUTH-TOKEN");
     }
     public String createToken(String email){
        Date now = new Date();
@@ -60,7 +56,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256,secretKey)
                 .compact();
     }
 

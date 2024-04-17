@@ -16,7 +16,7 @@ import com.firstpj.member.model.MemberSignUp;
  */
 public interface MemberService {
 
-    public Integer signup(MemberSignUp memberSignUp) throws Exception;
+    public boolean signUp(MemberSignUp memberSignUp) throws Exception;
 
     public String login(LoginRqModel model);
 

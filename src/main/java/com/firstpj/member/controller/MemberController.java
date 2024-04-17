@@ -1,8 +1,10 @@
 package com.firstpj.member.controller;
 
+import com.firstpj.config.security.JwtUtil;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ import java.util.Collections;
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtUtil jwtUtil;
 
 
     @DeleteMapping("/comments/{id}")
@@ -43,14 +46,24 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public Integer signup(@RequestBody MemberSignUp memberSignUp) throws Exception{
-        return memberService.signup(memberSignUp);
+    public ResponseEntity<?> signup(@RequestBody MemberSignUp memberSignUp) throws Exception{
+        boolean isSuccess = memberService.signUp(memberSignUp);
+
+        if (isSuccess) {
+            return ResponseEntity.ok(Collections.singletonMap("message", "회원가입이 완료되었습니다."));
+        } else {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("message", "회원가입에 실패했습니다."));
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRqModel model){
-        String token = memberService.login(model);
-        return ResponseEntity.status(HttpStatus.OK).body(token);
+    public ResponseEntity<?> login(@RequestBody LoginRqModel model, HttpServletResponse httpServletResponse){
+        String memberEmail = memberService.login(model);
+
+        String token = jwtUtil.createToken(memberEmail);
+        httpServletResponse.setHeader("X-AUTH-TOKEN",token);
+
+        return ResponseEntity.ok(Collections.singletonMap("message","로그인이 완료되었습니다."));
     }
 
 
