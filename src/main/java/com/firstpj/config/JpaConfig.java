@@ -1,5 +1,6 @@
 package com.firstpj.config;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
@@ -52,10 +53,11 @@ public class JpaConfig {
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.control")
     public DataSource dataSource(){
-        return DataSourceBuilder
-                .create()
-                .type(HikariDataSource.class)
-                .build();
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/FirstProject?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8");
+        config.setUsername("root");
+        config.setPassword("12341234");
+        return new HikariDataSource(config);
     }
 
     @Bean(name = "entityManagerFactoryBean")
