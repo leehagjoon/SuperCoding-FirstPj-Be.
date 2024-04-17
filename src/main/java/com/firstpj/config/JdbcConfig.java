@@ -31,7 +31,7 @@ public class JdbcConfig {
         dataSource.setUsername("root");
         dataSource.setPassword("12341234");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=UTF-8");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/firstproject?useUnicode=true&characterEncoding=UTF-8");
         return dataSource;
     }
 
