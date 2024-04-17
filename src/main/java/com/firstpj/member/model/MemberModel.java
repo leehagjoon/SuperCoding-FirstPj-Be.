@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,14 +21,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.class)
-public class MemberRqModel {
+public class MemberModel {
     private Integer memberId;
     private String email;
     private String password;
     private String author;
     private RoleType role;
 
-    public MemberRqModel(MemberEntity memberEntity){
+    public MemberModel(MemberEntity memberEntity){
         this.memberId=memberEntity.getMemberId();
         this.email=memberEntity.getEmail();
         this.password=memberEntity.getPassword();

@@ -17,4 +17,5 @@ spring:
         format_sql : true
 
   jwt:
-    secret-key-source: super-coding
+    secret-key-source: ${JWT_SECRET_KEY}
+

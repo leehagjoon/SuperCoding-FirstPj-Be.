@@ -2,17 +2,24 @@ package com.firstpj.member.service.impl;
 
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.repository.MemberRepository;
+import com.firstpj.jwt.JwtUtil;
+import com.firstpj.member.model.CustomUserInfoModel;
+import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * packageName    : com.firstpj.api.member.service.impl
@@ -34,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final JwtUtil jwtUtil;
 
     private final AuthenticationManager authenticationManager;
 
@@ -56,5 +64,22 @@ public class MemberServiceImpl implements MemberService {
         member.addUserAuthority();
         return member.getMemberId();
     }
+
+    @Override
+    public String login(LoginRqModel model) {
+        String email = model.getEmail();
+        String password = model.getPassword();
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return jwtUtil.createToken(email);
+    }
+
+    public String createToken(String email){
+        String token = jwtUtil.createToken(email);
+        return token;
+    }
+
 
 }

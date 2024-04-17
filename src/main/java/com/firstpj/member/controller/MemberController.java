@@ -1,8 +1,11 @@
 package com.firstpj.member.controller;
 
+import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +45,12 @@ public class MemberController {
     @PostMapping("/signup")
     public Integer signup(@RequestBody MemberSignUp memberSignUp) throws Exception{
         return memberService.signup(memberSignUp);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRqModel model){
+        String token = memberService.login(model);
+        return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
 
