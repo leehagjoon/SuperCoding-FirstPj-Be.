@@ -58,6 +58,7 @@ public class JpaConfig {
         config.setUsername("root");
         config.setPassword("12341234");
         return new HikariDataSource(config);
+
     }
 
     @Bean(name = "entityManagerFactoryBean")
