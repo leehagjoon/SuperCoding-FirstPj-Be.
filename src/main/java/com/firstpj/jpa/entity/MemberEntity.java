@@ -14,31 +14,27 @@ import lombok.*;
  * -----------------------------------------------------------
  * 2024-04-16        hagjoon       최초 생성
  */
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "member")
 public class MemberEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Id@Column(name = "member_id")@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
 
-    @Column(name = "email")
+    @Column(name = "email",length = 25)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password",length = 255)
     private String password;
 
-    @Column(name = "author")
+    @Column(name = "author",length = 10)
     private String author;
 
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
+    @Column(name = "role",length = 30)
+    private String role;
+
 
 }
