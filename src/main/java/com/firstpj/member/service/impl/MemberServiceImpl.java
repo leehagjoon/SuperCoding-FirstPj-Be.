@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     @CacheEvict(value = "comments",allEntries = true)
     public void deleteById(String id) {
         Integer idInt=Integer.parseInt(id);

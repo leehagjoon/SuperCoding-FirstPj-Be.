@@ -1,6 +1,7 @@
 package com.firstpj.member.controller;
 
 import com.firstpj.member.model.MemberSignUp;
+import com.firstpj.member.service.MemberService;
 import com.firstpj.member.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private final MemberServiceImpl memberService;
+    private final MemberService memberService;
 
     @DeleteMapping("/comments/{id}")
     public String deleteCommentsByPathId(@PathVariable String id){

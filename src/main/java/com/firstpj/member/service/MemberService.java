@@ -16,4 +16,6 @@ import com.firstpj.member.model.MemberSignUp;
 public interface MemberService {
 
     public boolean signup(MemberSignUp memberSignUp);
+
+    public void deleteById(String id);
 }
