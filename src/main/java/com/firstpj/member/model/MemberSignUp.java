@@ -1,40 +1,44 @@
 package com.firstpj.member.model;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
  * packageName    : com.firstpj.member.model
- * fileName       : MemberModel
+ * fileName       : MemberSignUp
  * author         : hagjoon
- * date           : 2024-04-16
+ * date           : 2024-04-17
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-04-16        hagjoon       최초 생성
+ * 2024-04-17        hagjoon       최초 생성
  */
 @Getter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.class)
-public class MemberRqModel {
-    private Integer memberId;
+@AllArgsConstructor
+public class MemberSignUp {
+
     private String email;
+
     private String password;
+
     private String author;
+
     private RoleType role;
 
-    public MemberRqModel(MemberEntity memberEntity){
-        this.memberId=memberEntity.getMemberId();
-        this.email=memberEntity.getEmail();
-        this.password=memberEntity.getPassword();
-        this.author=memberEntity.getAuthor();
-        this.role=memberEntity.getRole();
+    @Builder
+    public MemberEntity toEntity(){
+        return MemberEntity.builder()
+                .email(email)
+                .password(password)
+                .author(author)
+                .role(RoleType.USER)
+                .build();
     }
 
 }
