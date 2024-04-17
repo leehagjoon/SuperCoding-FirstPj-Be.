@@ -25,4 +25,6 @@ public class MemberSignUp {
 
     private String password;
 
+    private String author;
+
 }

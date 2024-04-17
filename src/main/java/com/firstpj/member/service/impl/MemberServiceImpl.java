@@ -34,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
     public boolean signup(MemberSignUp memberSignUp) {
         String email = memberSignUp.getEmail();
         String password = memberSignUp.getPassword();
+        String author = memberSignUp.getAuthor();
 
         // 유효성 검사
         if( email == null || email.isEmpty()){
@@ -48,6 +49,8 @@ public class MemberServiceImpl implements MemberService {
                 memberRepository.save(MemberEntity.builder()
                         .email(email)
                         .password(EncoderPassword)
+                                .author(author)
+
                         .build())
         );
         return true;
