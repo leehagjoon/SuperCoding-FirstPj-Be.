@@ -1,6 +1,5 @@
 package com.firstpj.member.service;
 
-import com.firstpj.member.model.MemberLoginModel;
 import com.firstpj.member.model.MemberSignUp;
 
 /**
@@ -18,7 +17,6 @@ public interface MemberService {
 
     public Integer signup(MemberSignUp memberSignUp) throws Exception;
 
-    public String login(MemberLoginModel model);
 
     public void deleteById(String id);
 }

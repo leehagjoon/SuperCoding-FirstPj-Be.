@@ -1,13 +1,8 @@
 package com.firstpj.member.controller;
 
-import com.firstpj.member.model.MemberLoginModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
-import com.firstpj.member.service.impl.MemberServiceImpl;
-import jakarta.servlet.http.HttpServletResponse;
-import jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +26,6 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    private JwtTokenProvider jwtTokenProvider;
 
     @DeleteMapping("/comments/{id}")
     public String deleteCommentsByPathId(@PathVariable String id){
@@ -50,18 +44,6 @@ public class MemberController {
         return memberService.signup(memberSignUp);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MemberLoginModel model, HttpServletResponse httpServletResponse){
-
-        //로그인 시도
-        String memberEmail = memberService.login(model);
-
-        //토큰 생성
-        String token = jwtTokenProvider.createToken(memberEmail);
-        httpServletResponse.setHeader("Authorization","Bearer "+ token);
-
-        return ResponseEntity.ok(Collections.singletonMap("message","로그인 성공"));
-    }
 
     @PostMapping("/logout")
     public String logout(){
