@@ -3,7 +3,11 @@ package com.firstpj.comments.model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.CommentsEntity;
+import com.firstpj.jpa.entity.MemberEntity;
+import com.firstpj.jpa.entity.PostEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -27,5 +31,8 @@ public class CommentsRqModel {
         this.memberId=commentsEntity.getMember().getMemberId();
         this.content=commentsEntity.getContent();
         this.createdAt=commentsEntity.getCreateAt().format(formatter);
+    }
+
+    public CommentsRqModel(Integer commentsId, PostEntity post, String content, MemberEntity member, LocalDateTime createAt) {
     }
 }
