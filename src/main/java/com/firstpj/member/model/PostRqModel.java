@@ -2,6 +2,7 @@ package com.firstpj.member.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.PostEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,8 @@ public class PostRqModel {
         this.content=postEntity.getContent();
         this.author=postEntity.getAuthor();
         this.createAt=postEntity.getCreateAt().format(formatter);
+    }
+
+    public PostRqModel(Integer postId, MemberEntity member, String title, String content, String author, LocalDateTime createAt) {
     }
 }
