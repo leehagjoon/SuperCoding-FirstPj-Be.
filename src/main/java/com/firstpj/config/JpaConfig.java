@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.firstpj"},
+        basePackages = {"com.firstpj.jpa.entity", "com.firstpj.jpa.repository"},
         entityManagerFactoryRef = "entityManagerFactoryBean",
         transactionManagerRef = "tmJpa"
 )
@@ -37,7 +37,7 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource")DataSource dataSource){
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.firstpj.jpa");
+        em.setPackagesToScan("com.firstpj.jpa.entity", "com.firstpj.jpa.repository");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

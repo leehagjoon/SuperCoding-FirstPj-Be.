@@ -2,12 +2,11 @@ package com.firstpj.member.controller;
 
 import com.firstpj.config.security.JwtUtil;
 import com.firstpj.jpa.entity.RoleType;
-import com.firstpj.member.model.LoginRqModel;
-import com.firstpj.member.model.MemberSignUp;
+import com.firstpj.member.model.*;
+import com.firstpj.member.model.dto.CommentsBody2;
 import com.firstpj.member.service.MemberService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +32,17 @@ public class MemberController {
 
     private final MemberService memberService;
     private final JwtUtil jwtUtil;
+
+    @PutMapping("/posts/{id}")
+    public PostRqModel updatePostsByPathId(@PathVariable Integer id, @RequestBody PostsBody postsBody) {
+        
+        return memberService.updatePosts(id, postsBody);
+    }
+
+    @PutMapping("/comments/{id}")
+    public CommentsRqModel updateCommentsByPathId(@PathVariable Integer id, @RequestBody CommentsBody commentsBody) {
+        return memberService.updateComments(id, commentsBody);
+    }
 
 
     @DeleteMapping("/comments/{id}")

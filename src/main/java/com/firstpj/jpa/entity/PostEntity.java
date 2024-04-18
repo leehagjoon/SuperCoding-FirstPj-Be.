@@ -1,11 +1,13 @@
 package com.firstpj.jpa.entity;
 
+import com.firstpj.member.model.PostsBody;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,4 +33,8 @@ public class PostEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
+    public void setPostsBody(PostsBody postsBody) {
+        this.title = postsBody.getTitle();
+        this.content = postsBody.getContent();
+    }
 }

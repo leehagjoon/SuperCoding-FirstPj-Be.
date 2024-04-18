@@ -1,13 +1,19 @@
 package com.firstpj.member.service.impl;
 
+import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.MemberEntity;
+import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.config.security.JwtUtil;
-import com.firstpj.member.model.LoginRqModel;
-import com.firstpj.member.model.MemberSignUp;
+import com.firstpj.jpa.repository.PostRepository;
+import com.firstpj.member.model.*;
+import com.firstpj.member.model.dto.CommentsBody2;
 import com.firstpj.member.service.MemberService;
-import jakarta.transaction.Transactional;
+import com.firstpj.member.service.exceptions.NotFoundException;
+import com.firstpj.member.service.mapper.CommentMapper;
+import com.firstpj.member.service.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -19,8 +25,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.NotAcceptableStatusException;
-
-import java.util.List;
 
 /**
  * packageName    : com.firstpj.api.member.service.impl
@@ -45,6 +49,37 @@ public class MemberServiceImpl implements MemberService {
     private final JwtUtil jwtUtil;
 
     private final AuthenticationManager authenticationManager;
+
+    private final PostRepository postRepository;
+
+    private final CommentsRpository commentsRpository;
+
+
+    @Override
+    public PostRqModel updatePosts(Integer id, PostsBody postsBody) {
+//        Integer idInt = Integer.valueOf(id);
+
+        PostEntity postEntityUpdated = postRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
+
+
+        postEntityUpdated.setPostsBody(postsBody);
+
+        postRepository.save(postEntityUpdated);
+
+        return PostMapper.INSTANCE.postEntityToPostRqModel(postEntityUpdated);
+    }
+
+    @Override
+    public CommentsRqModel updateComments(Integer id, CommentsBody commentsBody) {
+//        Integer idInt = Integer.valueOf(id);
+        CommentsEntity commentsEntity = commentsRpository.findById(id)
+                .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
+
+        commentsEntity.setCommentsBody(commentsBody);
+
+        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntity);
+    }
 
 
     @Override

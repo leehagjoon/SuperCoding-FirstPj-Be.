@@ -1,8 +1,8 @@
 package com.firstpj.member.service;
 
 import com.firstpj.jpa.entity.RoleType;
-import com.firstpj.member.model.LoginRqModel;
-import com.firstpj.member.model.MemberSignUp;
+import com.firstpj.member.model.*;
+import com.firstpj.member.model.dto.CommentsBody2;
 
 /**
  * packageName    : com.firstpj.api.member.service
@@ -16,6 +16,10 @@ import com.firstpj.member.model.MemberSignUp;
  * 2024-04-16        hagjoon       최초 생성
  */
 public interface MemberService {
+
+    PostRqModel updatePosts(Integer id, PostsBody postsBody);
+
+    CommentsRqModel updateComments(Integer id, CommentsBody commentsBody);
 
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception;
 
