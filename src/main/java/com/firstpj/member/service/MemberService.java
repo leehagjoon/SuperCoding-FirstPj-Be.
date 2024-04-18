@@ -17,7 +17,7 @@ import com.firstpj.member.model.dto.CommentsBody2;
  */
 public interface MemberService {
 
-    PostRqModel updatePosts(Integer id, PostsBody postsBody);
+    void updatePosts(Integer postId, PostsBody postsBody);
 
     CommentsRqModel updateComments(Integer id, CommentsBody commentsBody);
 

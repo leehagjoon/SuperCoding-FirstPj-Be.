@@ -3,6 +3,7 @@ package com.firstpj.member.model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.PostEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class PostRqModel {
     private static DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
-
+    @Builder
     public PostRqModel (PostEntity postEntity){
         this.postId=postEntity.getPostId();
         this.memberId=postEntity.getMember().getMemberId();

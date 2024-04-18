@@ -14,6 +14,7 @@ import com.firstpj.member.service.MemberService;
 import com.firstpj.member.service.exceptions.NotFoundException;
 import com.firstpj.member.service.mapper.CommentMapper;
 import com.firstpj.member.service.mapper.PostMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -56,18 +57,17 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public PostRqModel updatePosts(Integer id, PostsBody postsBody) {
+    @Transactional
+    public void updatePosts(Integer postId, PostsBody postsBody) {
 //        Integer idInt = Integer.valueOf(id);
 
-        PostEntity postEntityUpdated = postRepository.findById(id)
+        PostEntity postEntityUpdated = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
 
 
         postEntityUpdated.setPostsBody(postsBody);
 
         postRepository.save(postEntityUpdated);
-
-        return PostMapper.INSTANCE.postEntityToPostRqModel(postEntityUpdated);
     }
 
     @Override

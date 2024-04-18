@@ -70,10 +70,10 @@ public class JwtUtil {
             Date now = new Date();
             return experationDate != null && experationDate.after(now);
         }catch (ExpiredJwtException e){
-            log.info("만료된 토큰");
+            log.error("만료된 토큰",e);
             return false;
         }catch (Exception e){
-            log.info("토큰이 없습니다.");
+            log.error("알수 없는 예외 발생.",e);
             return false;
         }
     }
