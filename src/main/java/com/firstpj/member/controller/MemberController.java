@@ -25,13 +25,13 @@ public class MemberController {
 
     @DeleteMapping("/comments/{id}")
     public String deleteCommentsByPathId(@PathVariable String id){
-        memberService.deleteById(id);
+        memberService.deleteByIdComments(id);
         return "댓글이 삭제되었습니다.";
     }
 
     @DeleteMapping("/post/{id}")
     public String deletePostByPathId(@PathVariable String id){
-        memberService.deleteById(id);
+        memberService.deleteByIdPost(id);
         return "해당 글이 삭제 되었습니다.";
     }
 }

@@ -1,6 +1,8 @@
 package com.firstpj.member.service.impl;
 
+import com.firstpj.jpa.repository.CommentsRepository;
 import com.firstpj.jpa.repository.MemberRepository;
+import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +26,19 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
+    private final CommentsRepository commentsRepository;
 
-    @CacheEvict(value = "comments",allEntries = true)
-    public void deleteById(String id) {
+
+//    @CacheEvict(value = "comments",allEntries = true)
+    public void deleteByIdComments(String id) {
         Integer idInt=Integer.parseInt(id);
-        memberRepository.deleteById(idInt);
+        commentsRepository.deleteById(idInt);
+    }
+
+    public void deleteByIdPost(String id) {
+        Integer idInt=Integer.parseInt(id);
+        postRepository.deleteById(idInt);
     }
 
 
