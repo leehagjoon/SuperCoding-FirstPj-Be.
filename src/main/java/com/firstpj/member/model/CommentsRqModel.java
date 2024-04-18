@@ -20,6 +20,7 @@ public class CommentsRqModel {
 
     private static DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+
     public CommentsRqModel(CommentsEntity commentsEntity) {
         this.commentsId=commentsEntity.getCommentsId();
         this.postId=commentsEntity.getPost().getPostId();

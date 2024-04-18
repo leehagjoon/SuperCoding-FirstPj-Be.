@@ -6,5 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentsBody {
+    private Integer commentsId;
     private String content;
 }

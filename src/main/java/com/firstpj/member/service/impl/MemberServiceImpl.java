@@ -71,14 +71,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public CommentsRqModel updateComments(Integer id, CommentsBody commentsBody) {
+    @Transactional
+    public void updateComments(Integer commentsId, CommentsBody commentsBody) {
 //        Integer idInt = Integer.valueOf(id);
-        CommentsEntity commentsEntity = commentsRpository.findById(id)
+        CommentsEntity commentsEntityUpdated = commentsRpository.findById(commentsId)
                 .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
 
-        commentsEntity.setCommentsBody(commentsBody);
+        commentsEntityUpdated.setCommentsBody(commentsBody);
 
-        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntity);
+        commentsRpository.save(commentsEntityUpdated);
+
+//        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntityUpdated);
     }
 
 

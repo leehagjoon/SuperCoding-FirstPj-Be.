@@ -19,7 +19,7 @@ public interface MemberService {
 
     void updatePosts(Integer postId, PostsBody postsBody);
 
-    CommentsRqModel updateComments(Integer id, CommentsBody commentsBody);
+    void updateComments(Integer id, CommentsBody commentsBody);
 
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception;
 

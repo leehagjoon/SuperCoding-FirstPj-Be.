@@ -48,9 +48,16 @@ public class MemberController {
 
     }
 
-    @PutMapping("/comments/{id}")
-    public CommentsRqModel updateCommentsByPathId(@PathVariable Integer id, @RequestBody CommentsBody commentsBody) {
-        return memberService.updateComments(id, commentsBody);
+    @PutMapping("/comments/{commentsId}/updates")
+    public ResponseEntity<?> updateCommentsByPathId(@PathVariable Integer commentsId, @RequestBody CommentsBody commentsBody) {
+        try {
+            memberService.updateComments(commentsId, commentsBody);
+            return ResponseEntity.ok(Collections.singletonMap("message","댓글 수정에 성공하였습니다."));
+        } catch (Exception e) {
+            log.error("기타 예외가 발생",e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("message",e.getMessage()));
+        }
+//        return memberService.updateComments(commentsId, commentsBody);
     }
 
 

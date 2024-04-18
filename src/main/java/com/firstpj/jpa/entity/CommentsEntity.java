@@ -29,7 +29,7 @@ public class CommentsEntity {
     @Column(name = "content",length = 255)
     private String content;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private LocalDateTime createAt;
 
     public void setCommentsBody(CommentsBody commentsBody) {
