@@ -3,6 +3,7 @@ package com.firstpj.member.service.mapper;
 import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.member.model.PostRqModel;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper

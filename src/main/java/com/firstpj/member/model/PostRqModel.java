@@ -3,14 +3,18 @@ package com.firstpj.member.model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.PostEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.class)
 public class PostRqModel {
     private Integer postId;

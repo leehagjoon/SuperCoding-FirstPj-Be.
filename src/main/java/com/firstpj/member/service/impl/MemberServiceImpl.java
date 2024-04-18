@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
         Integer idInt = Integer.valueOf(id);
         PostEntity postEntityUpdated = postRepository.findById(idInt)
                 .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
-
+        
         postEntityUpdated.setPostsBody(postsBody);
 
         return PostMapper.INSTANCE.postEntityToPostRqModel(postEntityUpdated);
