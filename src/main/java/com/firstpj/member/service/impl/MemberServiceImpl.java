@@ -55,10 +55,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean signUp(MemberSignUp memberSignUp) throws Exception {
+    public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception {
+        memberSignUp.setRole(RoleType.USER);
+
        String email = memberSignUp.getEmail();
        String password = memberSignUp.getPassword();
        String author = memberSignUp.getAuthor();
+       RoleType role = memberSignUp.getRole();
+
 
        if(email == null || email.isEmpty()){
            return false;
@@ -71,6 +75,7 @@ public class MemberServiceImpl implements MemberService {
                        .email(email)
                        .password(encodedPassword)
                                .author(author)
+                               .role(role)
                        .build()));
        return true;
     }

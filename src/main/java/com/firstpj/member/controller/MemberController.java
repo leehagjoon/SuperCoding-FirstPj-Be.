@@ -1,6 +1,7 @@
 package com.firstpj.member.controller;
 
 import com.firstpj.config.security.JwtUtil;
+import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
@@ -46,8 +47,8 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody MemberSignUp memberSignUp) throws Exception{
-        boolean isSuccess = memberService.signUp(memberSignUp);
+    public ResponseEntity<?> signup(@RequestBody MemberSignUp memberSignUp, RoleType roleType) throws Exception{
+        boolean isSuccess = memberService.signUp(memberSignUp,roleType);
 
         if (isSuccess) {
             return ResponseEntity.ok(Collections.singletonMap("message", "회원가입이 완료되었습니다."));
