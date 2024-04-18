@@ -33,6 +33,6 @@ public class CommentsRqModel {
         this.createdAt=commentsEntity.getCreateAt().format(formatter);
     }
 
-    public CommentsRqModel(Integer commentsId, PostEntity post, String content, MemberEntity member, LocalDateTime createAt) {
+    public CommentsRqModel(Integer commentsId, PostEntity post, String content, MemberEntity member, java.time.LocalDateTime createAt) {
     }
 }
