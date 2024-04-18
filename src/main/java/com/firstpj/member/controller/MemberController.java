@@ -36,15 +36,13 @@ public class MemberController {
 
 
     @DeleteMapping("/comments/{id}")
-    public String deleteCommentsByPathId(@PathVariable String id){
-        memberService.deleteById(id);
-        return "댓글이 삭제되었습니다.";
+    public void deleteCommentsByPathId(@PathVariable String id, String token){
+        memberService.deleteByIdComments(id,token);
     }
 
     @DeleteMapping("/post/{id}")
-    public String deletePostByPathId(@PathVariable String id){
-        memberService.deleteById(id);
-        return "해당 글이 삭제 되었습니다.";
+    public void deletePostByPathId(@PathVariable String id){
+        memberService.deleteByIdPost(id);
     }
 
     @PostMapping("/signup")
