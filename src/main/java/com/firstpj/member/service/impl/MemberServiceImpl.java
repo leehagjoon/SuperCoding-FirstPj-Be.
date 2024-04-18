@@ -1,16 +1,23 @@
 package com.firstpj.member.service.impl;
 
+import com.firstpj.jpa.entity.Comments;
+import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.jpa.repository.CommentsRepository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.config.security.JwtUtil;
+import com.firstpj.jpa.repository.PostRepository;
+import com.firstpj.member.model.CustomUserInfoModel;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
+import com.firstpj.member.service.Exceptions.NotFoundException;
 import com.firstpj.member.service.MemberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,6 +47,10 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
+    private final CommentsRepository commentsRepository;
+
+    private final PostRepository postRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtil jwtUtil;
@@ -47,12 +58,37 @@ public class MemberServiceImpl implements MemberService {
     private final AuthenticationManager authenticationManager;
 
 
-    @Override
+
     @CacheEvict(value = "comments",allEntries = true)
-    public void deleteById(String id) {
+    public String deleteByIdComments(String id, String token) {
         Integer idInt=Integer.parseInt(id);
-        memberRepository.deleteById(idInt);
+
+        CommentsEntity comments =commentsRepository.findById(idInt)
+                .orElseThrow(()-> new NotFoundException("해당 id 가 없음 "));
+
+        Integer memberId=comments.getMember().getMemberId();
+
+        String email=jwtUtil.getUserEmail(token);
+
+        
+        MemberEntity memberEntity = memberRepository.findByEmail(email)
+                        .orElseThrow(()-> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+
+        if (memberEntity.getMemberId().equals(memberId)){
+            commentsRepository.deleteById(idInt);
+            return "삭제 되었습니다.";
+        }else {
+            return "본인 글만 삭제 할수 있습니다.";
+        }
+
     }
+
+    @CacheEvict(value = "post",allEntries = true)
+    public void deleteByIdPost(String id) {
+        Integer idInt=Integer.parseInt(id);
+        postRepository.deleteById(idInt);
+    }
+
 
     @Override
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception {
@@ -99,6 +135,12 @@ public class MemberServiceImpl implements MemberService {
             throw new NotAcceptableStatusException("로그인 할수 없습니다.");
         }
     }
+
+    @Override
+    public void deleteById(String id) {
+
+    }
+
 
     public String createToken(String email){
         String token = jwtUtil.createToken(email);
