@@ -1,12 +1,13 @@
 package com.firstpj.member.controller;
 
-import com.firstpj.member.model.MemberLoginModel;
+import com.firstpj.config.security.JwtUtil;
+import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 import com.firstpj.member.service.MemberService;
-import com.firstpj.member.service.impl.MemberServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
-import jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,8 @@ import java.util.Collections;
 public class MemberController {
 
     private final MemberService memberService;
+    private final JwtUtil jwtUtil;
 
-    private JwtTokenProvider jwtTokenProvider;
 
     @DeleteMapping("/comments/{id}")
     public String deleteCommentsByPathId(@PathVariable String id){
@@ -46,22 +47,26 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public Integer signup(@RequestBody MemberSignUp memberSignUp) throws Exception{
-        return memberService.signup(memberSignUp);
+    public ResponseEntity<?> signup(@RequestBody MemberSignUp memberSignUp, RoleType roleType) throws Exception{
+        boolean isSuccess = memberService.signUp(memberSignUp,roleType);
+
+        if (isSuccess) {
+            return ResponseEntity.ok(Collections.singletonMap("message", "회원가입이 완료되었습니다."));
+        } else {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("message", "회원가입에 실패했습니다."));
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MemberLoginModel model, HttpServletResponse httpServletResponse){
-
-        //로그인 시도
+    public ResponseEntity<?> login(@RequestBody LoginRqModel model, HttpServletResponse httpServletResponse){
         String memberEmail = memberService.login(model);
 
-        //토큰 생성
-        String token = jwtTokenProvider.createToken(memberEmail);
-        httpServletResponse.setHeader("Authorization","Bearer "+ token);
+        String token = jwtUtil.createToken(memberEmail);
+        httpServletResponse.setHeader("X-AUTH-TOKEN",token);
 
-        return ResponseEntity.ok(Collections.singletonMap("message","로그인 성공"));
+        return ResponseEntity.ok(Collections.singletonMap("message","로그인이 완료되었습니다."));
     }
+
 
     @PostMapping("/logout")
     public String logout(){

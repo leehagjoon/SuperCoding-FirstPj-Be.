@@ -1,6 +1,7 @@
 package com.firstpj.member.service;
 
-import com.firstpj.member.model.MemberLoginModel;
+import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
 
 /**
@@ -16,9 +17,10 @@ import com.firstpj.member.model.MemberSignUp;
  */
 public interface MemberService {
 
-    public Integer signup(MemberSignUp memberSignUp) throws Exception;
+    public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception;
 
-    public String login(MemberLoginModel model);
+    public String login(LoginRqModel model);
+
 
     public void deleteById(String id);
 }

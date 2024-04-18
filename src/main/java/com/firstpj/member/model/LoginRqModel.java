@@ -1,25 +1,26 @@
 package com.firstpj.member.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * packageName    : com.firstpj.member.model
- * fileName       : MemberLoginModel
+ * fileName       : LoginRqModel
  * author         : hagjoon
- * date           : 2024-04-17
+ * date           : 2024-04-18
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-04-17        hagjoon       최초 생성
+ * 2024-04-18        hagjoon       최초 생성
  */
-@Getter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-public class MemberLoginModel {
+@NoArgsConstructor
+public class LoginRqModel {
 
     private String email;
+
     private String password;
 }

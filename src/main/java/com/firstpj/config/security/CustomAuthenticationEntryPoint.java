@@ -1,4 +1,4 @@
-package jwt;
+package com.firstpj.config.security;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * packageName    : jwt
- * fileName       : CustomAUthenticationEntryPoint
+ * packageName    : com.firstpj.config.security
+ * fileName       : CustomAuthenticationEntryPoint
  * author         : hagjoon
- * date           : 2024-04-17
+ * date           : 2024-04-18
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-04-17        hagjoon       최초 생성
+ * 2024-04-18        hagjoon       최초 생성
  */
 @Component
-public class CustomAUthenticationEntryPoint implements AuthenticationEntryPoint {
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.sendRedirect("/exceptions/entrypoint");

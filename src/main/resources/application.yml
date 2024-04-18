@@ -16,5 +16,5 @@ spring:
       hibernate :
         format_sql : true
 
-  jwt:
-    secret-key-source: super-coding
+
+
