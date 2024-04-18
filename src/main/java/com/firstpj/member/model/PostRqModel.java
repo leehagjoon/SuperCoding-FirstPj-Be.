@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class PostRqModel {
     private Integer postId;
     private Integer memberId;

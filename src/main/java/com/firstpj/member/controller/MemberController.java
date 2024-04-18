@@ -1,6 +1,7 @@
 package com.firstpj.member.controller;
 
 import com.firstpj.config.security.JwtUtil;
+import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
@@ -9,9 +10,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Collections;
 
 /**
@@ -36,8 +40,8 @@ public class MemberController {
 
 
     @DeleteMapping("/comments/{id}")
-    public void deleteCommentsByPathId(@PathVariable String id, String token){
-        memberService.deleteByIdComments(id,token);
+    public void deleteCommentsByPathId(@PathVariable String id){
+        memberService.deleteByIdComments(id);
     }
 
     @DeleteMapping("/post/{id}")

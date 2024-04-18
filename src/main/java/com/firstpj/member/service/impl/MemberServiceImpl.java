@@ -1,9 +1,6 @@
 package com.firstpj.member.service.impl;
 
-import com.firstpj.jpa.entity.Comments;
-import com.firstpj.jpa.entity.CommentsEntity;
-import com.firstpj.jpa.entity.MemberEntity;
-import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.jpa.entity.*;
 import com.firstpj.jpa.repository.CommentsRepository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.config.security.JwtUtil;
@@ -27,7 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.NotAcceptableStatusException;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * packageName    : com.firstpj.api.member.service.impl
@@ -57,30 +56,29 @@ public class MemberServiceImpl implements MemberService {
 
     private final AuthenticationManager authenticationManager;
 
-
+    private final MemberUtil memberUtil;
 
     @CacheEvict(value = "comments",allEntries = true)
-    public String deleteByIdComments(String id, String token) {
+    public void deleteByIdComments(String id) {
+
         Integer idInt=Integer.parseInt(id);
 
-        CommentsEntity comments =commentsRepository.findById(idInt)
-                .orElseThrow(()-> new NotFoundException("해당 id 가 없음 "));
-
-        Integer memberId=comments.getMember().getMemberId();
-
-        String email=jwtUtil.getUserEmail(token);
-
-        
-        MemberEntity memberEntity = memberRepository.findByEmail(email)
-                        .orElseThrow(()-> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
-
-        if (memberEntity.getMemberId().equals(memberId)){
-            commentsRepository.deleteById(idInt);
-            return "삭제 되었습니다.";
-        }else {
-            return "본인 글만 삭제 할수 있습니다.";
-        }
-
+//        CommentsEntity comments =commentsRepository.findById(idInt)
+//                .orElseThrow(()-> new NotFoundException("해당 id 가 없음 "));
+//
+//        Integer memberId=comments.getMember().getMemberId();
+//
+//
+//        MemberEntity memberEntity = memberRepository.findByEmail(memberUtil.findCurrentMember())
+//                        .orElseThrow(()-> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+//
+//        if (memberEntity.getMemberId().equals(memberId)){
+//            commentsRepository.deleteById(idInt);
+//            return "삭제 되었습니다.";
+//        }else {
+//            return "본인 글만 삭제 할수 있습니다.";
+//        }
+        commentsRepository.deleteById(idInt);
     }
 
     @CacheEvict(value = "post",allEntries = true)
@@ -139,12 +137,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void deleteById(String id) {
 
-    }
-
-
-    public String createToken(String email){
-        String token = jwtUtil.createToken(email);
-        return token;
     }
 
 

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class MemberModel {
     private Integer memberId;
     private String email;
