@@ -30,12 +30,12 @@ public class MemberServiceImpl implements MemberService {
     private final CommentsRepository commentsRepository;
 
 
-//    @CacheEvict(value = "comments",allEntries = true)
+    @CacheEvict(value = "comments",allEntries = true)
     public void deleteByIdComments(String id) {
         Integer idInt=Integer.parseInt(id);
         commentsRepository.deleteById(idInt);
     }
-
+    @CacheEvict(value = "post",allEntries = true)
     public void deleteByIdPost(String id) {
         Integer idInt=Integer.parseInt(id);
         postRepository.deleteById(idInt);
