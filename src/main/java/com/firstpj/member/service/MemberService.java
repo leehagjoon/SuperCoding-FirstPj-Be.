@@ -3,6 +3,7 @@ package com.firstpj.member.service;
 import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.*;
 import com.firstpj.member.model.dto.CommentsBody2;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * packageName    : com.firstpj.api.member.service
@@ -17,7 +18,7 @@ import com.firstpj.member.model.dto.CommentsBody2;
  */
 public interface MemberService {
 
-    void updatePosts(Integer postId, PostsBody postsBody);
+    PostRqModel updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
 
     void updateComments(Integer id, CommentsBody commentsBody);
 

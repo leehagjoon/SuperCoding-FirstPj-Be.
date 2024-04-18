@@ -14,6 +14,8 @@ import com.firstpj.member.service.MemberService;
 import com.firstpj.member.service.exceptions.NotFoundException;
 import com.firstpj.member.service.mapper.CommentMapper;
 import com.firstpj.member.service.mapper.PostMapper;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.NotAcceptableStatusException;
 
 /**
@@ -58,16 +61,17 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public void updatePosts(Integer postId, PostsBody postsBody) {
-//        Integer idInt = Integer.valueOf(id);
-
+    public PostRqModel updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
+        MemberEntity member = getuserFromToken(request);
         PostEntity postEntityUpdated = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
+        MemberEntity memberEntity = memberRepository.findById(member.getMemberId())
+                        .orElseThrow(() -> new NotFoundException("해당 유저를 찾을 수 없습니다."));
 
+        postEntityUpdated.setPostsBody(rq);
 
-        postEntityUpdated.setPostsBody(postsBody);
+      return new PostRqModel(postEntityUpdated);
 
-        postRepository.save(postEntityUpdated);
     }
 
     @Override
@@ -138,9 +142,18 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    public String createToken(String email){
-        String token = jwtUtil.createToken(email);
-        return token;
+    private MemberEntity getuserFromToken(HttpServletRequest request) throws IllegalAccessException {
+        String token = jwtUtil.resolveToken(request);
+        Claims claims;
+        if(StringUtils.hasText(token)){
+            if(jwtUtil.validateToken(token)){
+                claims = jwtUtil.getUserInfoFromToken(token);
+            }else{
+                throw new IllegalAccessException("올바른 token 이 아닙니다.");
+            }
+        return memberRepository.findByEmail(claims.getSubject()).orElseThrow(()-> new IllegalArgumentException("해당 사용자를 찾을 수 없습니다."));
+        }
+        throw new IllegalAccessException("token이 없습니다.");
     }
 
 

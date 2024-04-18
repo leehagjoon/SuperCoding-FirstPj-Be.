@@ -26,7 +26,6 @@ public class PostRqModel {
     private static DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
-    @Builder
     public PostRqModel (PostEntity postEntity){
         this.postId=postEntity.getPostId();
         this.memberId=postEntity.getMember().getMemberId();

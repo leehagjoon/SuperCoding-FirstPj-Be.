@@ -5,6 +5,7 @@ import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.*;
 import com.firstpj.member.model.dto.CommentsBody2;
 import com.firstpj.member.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,9 +38,9 @@ public class MemberController {
     private final JwtUtil jwtUtil;
 
     @PutMapping("/posts/{postId}/updates")
-    public ResponseEntity<?> updatePostsByPathId(@PathVariable Integer postId, @RequestBody PostsBody postsBody) {
+    public ResponseEntity<?> updatePostsByPathId(@PathVariable Integer postId, @RequestBody PostsBody postsBody, HttpServletRequest request) {
         try{
-            memberService.updatePosts(postId, postsBody);
+            memberService.updatePosts(postId, postsBody,request);
             return ResponseEntity.ok(Collections.singletonMap("message","게시글 수정에 성공하였습니다."));
         }catch (Exception e){
             log.error("기타 예외가 발생",e);

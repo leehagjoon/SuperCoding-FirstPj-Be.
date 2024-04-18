@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "post")
 public class PostEntity {
-    @Id@Column(name = "post_id")@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "post_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
 
     @Column(name = "title",length = 50)
