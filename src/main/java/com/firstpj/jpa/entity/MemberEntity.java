@@ -1,10 +1,7 @@
 package com.firstpj.jpa.entity;
 
-import jakarta.persistence.Entity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * packageName    : com.firstpj.api.member.entity
@@ -19,8 +16,25 @@ import lombok.Setter;
  */
 @Entity
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "member")
 public class MemberEntity {
+    @Id@Column(name = "member_id")@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer memberId;
+
+    @Column(name = "email",length = 25)
+    private String email;
+
+    @Column(name = "password",length = 255)
+    private String password;
+
+    @Column(name = "author",length = 10)
+    private String author;
+
+    @Column(name = "role",length = 30)
+    private String role;
+
+
 }
