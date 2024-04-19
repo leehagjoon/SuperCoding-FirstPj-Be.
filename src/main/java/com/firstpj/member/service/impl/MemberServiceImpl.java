@@ -12,7 +12,6 @@ import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.model.*;
 import com.firstpj.member.model.dto.CommentsBody2;
 import com.firstpj.member.model.dto.PostRqModelDto;
-import com.firstpj.member.service.Exceptions.NotFoundException;
 import com.firstpj.member.service.MemberService;
 import com.firstpj.member.service.mapper.CommentMapper;
 import com.firstpj.member.service.mapper.PostMapper;
@@ -97,7 +96,7 @@ public class MemberServiceImpl implements MemberService {
     public void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
 //        MemberEntity member = getuserFromToken(request);
         PostEntity postEntityUpdated = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
 
         postEntityUpdated.setPostsBody(rq);
 
@@ -110,7 +109,7 @@ public class MemberServiceImpl implements MemberService {
     public void updateComments(Integer commentsId, CommentsBody commentsBody) {
 //        Integer idInt = Integer.valueOf(id);
         CommentsEntity commentsEntityUpdated = commentsRpository.findById(commentsId)
-                .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
 
         commentsEntityUpdated.setCommentsBody(commentsBody);
 
