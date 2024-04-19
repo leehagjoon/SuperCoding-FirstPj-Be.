@@ -94,14 +94,14 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public PostRqModelDto updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
+    public void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
 //        MemberEntity member = getuserFromToken(request);
         PostEntity postEntityUpdated = postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
 
         postEntityUpdated.setPostsBody(rq);
 
-      return new PostRqModelDto(postEntityUpdated);
+        postRepository.save(postEntityUpdated);
 
     }
 

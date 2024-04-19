@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public interface MemberService {
 
-    PostRqModelDto updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
+    void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
 
     void updateComments(Integer id, CommentsBody commentsBody);
 
