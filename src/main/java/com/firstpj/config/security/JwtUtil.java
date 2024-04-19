@@ -1,5 +1,6 @@
 package com.firstpj.config.security;
 
+import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.CustomUserInfoModel;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
@@ -49,14 +50,22 @@ public class JwtUtil {
     public String resolveToken(HttpServletRequest request){
         return request.getHeader("X-AUTH-TOKEN");
     }
-    public String createToken(String email){
+    public String createToken(String email, RoleType roleType){
        Date now = new Date();
-
+//
+//        return Jwts.builder()
+//                .setSubject(email)
+//                .setIssuedAt(now)
+//                .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
+//                .signWith(SignatureAlgorithm.HS256,secretKey)
+//                .compact();
+        Claims claims = Jwts.claims().setSubject(email);
+        claims.put("roles",roleType);
         return Jwts.builder()
-                .setSubject(email)
+                .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
-                .signWith(SignatureAlgorithm.HS256,secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
@@ -79,20 +88,15 @@ public class JwtUtil {
     }
 
   public Authentication getAuthentication(String jwtToken){
-        String memberEmail = getUserEmail(jwtToken);
-      UserDetails userDetails = userDetailsService.loadUserByUsername(memberEmail);
+      UserDetails userDetails = userDetailsService.loadUserByUsername(this.getMember(jwtToken));
       return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
   }
 
+  public String getMember(String jwtToken){
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody().getSubject();
+  }
 
-    public String getUserEmail(String jwtToken) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(jwtToken)
-                .getBody();
-        return claims.getSubject();
 
-    }
 
     public Claims getUserInfoFromToken(String jwtToken){
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken).getBody();

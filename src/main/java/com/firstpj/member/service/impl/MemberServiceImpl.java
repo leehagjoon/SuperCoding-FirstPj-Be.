@@ -124,18 +124,24 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String login(LoginRqModel model) {
-        String email = model.getEmail();
-        String password = model.getPassword();
+//        String email = model.getEmail();
+//        String password = model.getPassword();
 
         try{
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(email,password));
-            SecurityContextHolder.getContext()
-                    .setAuthentication(authentication);
-            MemberEntity memberEntity = memberRepository.findByEmail(email)
-                    .orElseThrow(()-> new UsernameNotFoundException("user이름을 찾을 수 없습니다."));
-
-             return jwtUtil.createToken(email);
+            MemberEntity member = memberRepository.findByEmail(model.getEmail())
+                    .orElseThrow(()-> new IllegalArgumentException("가입되지 않은 Email 입니다."));
+            if(!passwordEncoder.matches(model.getPassword(), member.getPassword())){
+                throw new IllegalAccessException("잘못된 비밀번호 입니다.");
+            }
+            return jwtUtil.createToken(member.getEmail(),member.getRole());
+//            Authentication authentication = authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(email,password));
+//            SecurityContextHolder.getContext()
+//                    .setAuthentication(authentication);
+//            MemberEntity memberEntity = memberRepository.findByEmail(email)
+//                    .orElseThrow(()-> new UsernameNotFoundException("user이름을 찾을 수 없습니다."));
+//
+//             return jwtUtil.createToken(email);
         }catch (Exception e){
             e.printStackTrace();
             throw new NotAcceptableStatusException("로그인 할수 없습니다.");

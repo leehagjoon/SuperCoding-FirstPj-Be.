@@ -1,5 +1,6 @@
 package com.firstpj.jwt;
 
+import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.CustomUserInfoModel;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,30 +31,22 @@ import java.util.stream.Collectors;
 @Builder
 @Getter
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private Integer memberId;
-    private String email;
-    private String password;
-    private RoleType role;
+  private final MemberEntity member;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<String> roles = new ArrayList<>();
-        roles.add("ROLE_"+ role);
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+      return Collections.singleton(new SimpleGrantedAuthority(member.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.email;
+        return member.getEmail();
     }
 
     @Override

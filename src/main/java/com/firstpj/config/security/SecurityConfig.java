@@ -54,6 +54,7 @@ public class SecurityConfig {
                 SessionCreationPolicy.STATELESS));
         http.formLogin((form)-> form.disable());
         http.httpBasic(AbstractHttpConfigurer::disable);
+        http.formLogin(AbstractHttpConfigurer::disable);
         http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling((exceptionHandling)-> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomerAccessDeniedHandler()));
