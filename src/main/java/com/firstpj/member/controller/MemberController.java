@@ -4,7 +4,6 @@ import com.firstpj.config.security.JwtUtil;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.*;
-import com.firstpj.member.model.dto.CommentsBody2;
 import com.firstpj.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

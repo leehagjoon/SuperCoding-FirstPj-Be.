@@ -19,10 +19,10 @@ public class CommentsController {
     private CommentService commentService;
 
     //댓글 조회
-    @GetMapping("/comments")
-    public ResponseEntity<?> findAllComments() {
-        List<CommentsRqModel> comments = commentService.findAllComments();
-        return ResponseEntity.ok().body(Map.of("comments", comments));
-
-    }
+//    @GetMapping("/comments")
+//    public ResponseEntity<?> findAllComments() {
+//        List<CommentsRqModel> comments = commentService.findAllComments();
+//        return ResponseEntity.ok().body(Map.of("comments", comments));
+//
+//    }
 }
