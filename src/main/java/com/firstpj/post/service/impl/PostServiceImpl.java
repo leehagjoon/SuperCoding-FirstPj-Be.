@@ -1,15 +1,9 @@
-package com.firstpj.member.service.impl;
+package com.firstpj.post.service.impl;
 
-import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.repository.PostRepository;
-import com.firstpj.member.model.PostRqModel;
-import com.firstpj.member.service.PostService;
+import com.firstpj.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

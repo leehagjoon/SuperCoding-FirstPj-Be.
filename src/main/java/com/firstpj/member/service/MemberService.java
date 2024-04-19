@@ -1,7 +1,9 @@
 package com.firstpj.member.service;
 
+import com.firstpj.comments.model.CommentsBody;
 import com.firstpj.jpa.entity.RoleType;
 import com.firstpj.member.model.*;
+import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;
 
 /**

@@ -1,4 +1,4 @@
-package com.firstpj.member.service;
+package com.firstpj.post.service;
 
 import java.util.List;
 

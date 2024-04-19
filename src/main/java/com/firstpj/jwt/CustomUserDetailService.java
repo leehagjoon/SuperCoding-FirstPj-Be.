@@ -2,15 +2,12 @@ package com.firstpj.jwt;
 
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.repository.MemberRepository;
-import com.firstpj.member.model.CustomUserInfoModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * packageName    : com.firstpj.jwt

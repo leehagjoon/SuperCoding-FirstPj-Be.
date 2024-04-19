@@ -1,4 +1,4 @@
-package com.firstpj.member.model;
+package com.firstpj.comments.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

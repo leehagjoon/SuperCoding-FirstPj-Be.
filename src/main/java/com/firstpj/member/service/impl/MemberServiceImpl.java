@@ -1,5 +1,6 @@
 package com.firstpj.member.service.impl;
 
+import com.firstpj.comments.model.CommentsBody;
 import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.PostEntity;
@@ -12,6 +13,7 @@ import com.firstpj.member.model.*;
 
 import com.firstpj.member.service.Exceptions.NotFoundException;
 import com.firstpj.member.service.MemberService;
+import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

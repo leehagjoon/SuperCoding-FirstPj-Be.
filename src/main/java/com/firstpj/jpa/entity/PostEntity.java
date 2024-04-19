@@ -1,6 +1,6 @@
 package com.firstpj.jpa.entity;
 
-import com.firstpj.member.model.PostsBody;
+import com.firstpj.post.model.PostsBody;
 import jakarta.persistence.*;
 import lombok.*;
 

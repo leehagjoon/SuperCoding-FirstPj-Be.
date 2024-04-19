@@ -1,4 +1,4 @@
-package com.firstpj.member.model;
+package com.firstpj.post.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

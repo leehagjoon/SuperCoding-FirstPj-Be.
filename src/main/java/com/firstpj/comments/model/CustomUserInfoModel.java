@@ -1,6 +1,7 @@
-package com.firstpj.member.model;
+package com.firstpj.comments.model;
 
 import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.member.model.MemberModel;
 import lombok.*;
 
 /**

@@ -1,7 +1,7 @@
-package com.firstpj.member.service.impl;
+package com.firstpj.comments.service.impl;
 
 import com.firstpj.jpa.repository.CommentsRpository;
-import com.firstpj.member.service.CommentService;
+import com.firstpj.comments.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
