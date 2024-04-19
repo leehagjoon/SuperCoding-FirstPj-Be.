@@ -1,4 +1,4 @@
-package com.firstpj.member.service.exceptions;
+package com.firstpj.member.service.Exceptions;
 
 public class NotFoundException extends RuntimeException {
 
