@@ -1,13 +1,12 @@
 package com.firstpj.member.service;
 
-import com.firstpj.config.security.JwtUtil;
-import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.RoleType;
+import com.firstpj.member.model.CommentsBody;
 import com.firstpj.member.model.LoginRqModel;
 import com.firstpj.member.model.MemberSignUp;
-import org.springframework.security.core.Authentication;
-
-import java.security.Principal;
+import com.firstpj.member.model.PostsBody;
+import com.firstpj.member.model.dto.PostRqModelDto;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * packageName    : com.firstpj.api.member.service
@@ -22,6 +21,10 @@ import java.security.Principal;
  */
 public interface MemberService {
 
+    PostRqModelDto updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
+
+    void updateComments(Integer id, CommentsBody commentsBody);
+
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception;
 
     public String login(LoginRqModel model);
@@ -29,7 +32,7 @@ public interface MemberService {
 
     public void deleteById(String id);
 
-    public String deleteByIdComments(String id);
+    public void deleteByIdComments(String id);
 
     public void deleteByIdPost(String id);
 }

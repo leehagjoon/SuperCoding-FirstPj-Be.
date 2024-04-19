@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategy.class)
-public class PostRqModel {
+public class PostRqModelDto {
     private Integer postId;
     private Integer memberId;
     private String title;
@@ -26,7 +26,7 @@ public class PostRqModel {
     private static DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
 
-    public PostRqModel (PostEntity postEntity){
+    public PostRqModelDto(PostEntity postEntity){
         this.postId=postEntity.getPostId();
         this.memberId=postEntity.getMember().getMemberId();
         this.title=postEntity.getTitle();
