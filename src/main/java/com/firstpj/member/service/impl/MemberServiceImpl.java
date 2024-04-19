@@ -59,10 +59,10 @@ public class MemberServiceImpl implements MemberService {
     private final MemberUtil memberUtil;
 
     @CacheEvict(value = "comments",allEntries = true)
-    public void deleteByIdComments(String id) {
+    public String deleteByIdComments(String id) {
 
         Integer idInt=Integer.parseInt(id);
-
+//
 //        CommentsEntity comments =commentsRepository.findById(idInt)
 //                .orElseThrow(()-> new NotFoundException("해당 id 가 없음 "));
 //
@@ -78,7 +78,8 @@ public class MemberServiceImpl implements MemberService {
 //        }else {
 //            return "본인 글만 삭제 할수 있습니다.";
 //        }
-        commentsRepository.deleteById(idInt);
+      commentsRepository.deleteById(idInt);
+      return "삭제되었습니다.";
     }
 
     @CacheEvict(value = "post",allEntries = true)

@@ -29,7 +29,7 @@ public interface MemberService {
 
     public void deleteById(String id);
 
-    public void deleteByIdComments(String id);
+    public String deleteByIdComments(String id);
 
     public void deleteByIdPost(String id);
 }
