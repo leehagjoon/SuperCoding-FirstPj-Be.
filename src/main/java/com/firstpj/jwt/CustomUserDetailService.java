@@ -36,14 +36,8 @@ public class CustomUserDetailService implements UserDetailsService {
         MemberEntity member = memberRepository.findByEmail(username)
                 .orElseThrow(()-> new UsernameNotFoundException("사용자를 찾을 수 없습니다. 이메일 : "+ username));
 
-        CustomUserDetails customUserDetails = CustomUserDetails.builder()
-                .memberId(member.getMemberId())
-                .email(member.getEmail())
-                .password(member.getPassword())
-                .role(member.getRole())
-                .build();
 
-        return customUserDetails;
+        return new CustomUserDetails(member);
     }
 
 

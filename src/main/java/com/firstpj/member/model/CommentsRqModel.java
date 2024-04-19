@@ -26,6 +26,6 @@ public class CommentsRqModel {
         this.postId=commentsEntity.getPost().getPostId();
         this.memberId=commentsEntity.getMember().getMemberId();
         this.content=commentsEntity.getContent();
-        this.createdAt=commentsEntity.getCreatedAt().format(formatter);
+        this.createdAt=commentsEntity.getCreateAt().format(formatter);
     }
 }
