@@ -54,6 +54,7 @@ public class SecurityConfig {
                 SessionCreationPolicy.STATELESS));
         http.formLogin((form)-> form.disable());
         http.httpBasic(AbstractHttpConfigurer::disable);
+        http.formLogin(AbstractHttpConfigurer::disable);
         http.addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
         http.exceptionHandling((exceptionHandling)-> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomerAccessDeniedHandler()));
@@ -74,7 +75,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // CORS 설정을 위한 새로운 CorsConfiguration 객체 생성
-        configuration.setAllowedOrigins(List.of("http://localhost:63342"));
+        configuration.setAllowedOrigins(List.of("http://localhost:8080"));
         // "http://localhost:63342"을 요청을 허용할 출처(origin)로 설정
         configuration.setAllowCredentials(true);
         // 쿠키를 포함한 요청을 허용하도록 설정
