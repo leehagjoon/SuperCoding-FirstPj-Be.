@@ -19,18 +19,18 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public interface MemberService {
 
-    void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
 
-    void updateComments(Integer id, CommentsBody commentsBody);
+
+
 
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception;
 
     public String login(LoginRqModel model);
 
 
-    public void deleteById(String id);
 
-    public void deleteByIdComments(String id);
 
-    public void deleteByIdPost(String id);
+
+
+
 }

@@ -38,40 +38,6 @@ public class MemberController {
     private final MemberService memberService;
     private final JwtUtil jwtUtil;
 
-    @PutMapping("/posts/{postId}/updates")
-    public ResponseEntity<?> updatePostsByPathId(@PathVariable Integer postId, @RequestBody PostsBody postsBody, HttpServletRequest request) {
-        try{
-            memberService.updatePosts(postId, postsBody,request);
-            return ResponseEntity.ok(Collections.singletonMap("message","게시글 수정에 성공하였습니다."));
-        }catch (Exception e){
-            log.error("기타 예외가 발생",e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("message",e.getMessage()));
-        }
-
-    }
-
-    @PutMapping("/comments/{commentsId}/updates")
-    public ResponseEntity<?> updateCommentsByPathId(@PathVariable Integer commentsId, @RequestBody CommentsBody commentsBody) {
-        try {
-            memberService.updateComments(commentsId, commentsBody);
-            return ResponseEntity.ok(Collections.singletonMap("message","댓글 수정에 성공하였습니다."));
-        } catch (Exception e) {
-            log.error("기타 예외가 발생",e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("message",e.getMessage()));
-        }
-//        return memberService.updateComments(commentsId, commentsBody);
-    }
-
-
-    @DeleteMapping("/comments/{id}")
-    public void deleteCommentsByPathId(@PathVariable String id){
-        memberService.deleteByIdComments(id);
-    }
-
-    @DeleteMapping("/post/{id}")
-    public void deletePostByPathId(@PathVariable String id){
-        memberService.deleteByIdPost(id);
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody MemberSignUp memberSignUp, RoleType roleType) throws Exception{

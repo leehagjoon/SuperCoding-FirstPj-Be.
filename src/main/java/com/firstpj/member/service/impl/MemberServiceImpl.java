@@ -52,71 +52,7 @@ public class MemberServiceImpl implements MemberService {
     private final PostRepository postRepository;
 
 
-    @CacheEvict(value = "comments",allEntries = true)
-    public void deleteByIdComments(String id) {
 
-        Integer idInt=Integer.parseInt(id);
-
-//        CommentsEntity comments =commentsRepository.findById(idInt)
-//                .orElseThrow(()-> new NotFoundException("해당 id 가 없음 "));
-//
-//        Integer memberId=comments.getMember().getMemberId();
-//
-//
-//        MemberEntity memberEntity = memberRepository.findByEmail(memberUtil.findCurrentMember())
-//                        .orElseThrow(()-> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
-//
-//        if (memberEntity.getMemberId().equals(memberId)){
-//            commentsRepository.deleteById(idInt);
-//            return "삭제 되었습니다.";
-//        }else {
-//            return "본인 글만 삭제 할수 있습니다.";
-//        }
-        commentsRepository.deleteById(idInt);
-    }
-
-    @CacheEvict(value = "post",allEntries = true)
-    public void deleteByIdPost(String id) {
-        Integer idInt=Integer.parseInt(id);
-        postRepository.deleteById(idInt);
-    }
-
-
-
-    @Override
-    @Transactional
-    public void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
-//        MemberEntity member = getuserFromToken(request);
-        PostEntity postEntityUpdated = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
-
-        postEntityUpdated.setPostsBody(rq);
-
-      postRepository.save(postEntityUpdated);
-
-    }
-
-    @Override
-    @Transactional
-    public void updateComments(Integer commentsId, CommentsBody commentsBody) {
-//        Integer idInt = Integer.valueOf(id);
-        CommentsEntity commentsEntityUpdated = commentsRepository.findById(commentsId)
-                .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
-
-        commentsEntityUpdated.setCommentsBody(commentsBody);
-
-        commentsRepository.save(commentsEntityUpdated);
-
-//        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntityUpdated);
-    }
-
-
-    @Override
-    @CacheEvict(value = "comments",allEntries = true)
-    public void deleteById(String id) {
-        Integer idInt=Integer.parseInt(id);
-        memberRepository.deleteById(idInt);
-    }
 
     @Override
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception {
