@@ -1,9 +1,8 @@
-package com.firstpj.member.model;
+package com.firstpj.member.model.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.MemberEntity;
-import com.firstpj.jpa.entity.RoleType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,20 +19,20 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class MemberModel {
+@JsonNaming(PropertyNamingStrategy.class)
+public class MemberRqModel {
     private Integer memberId;
     private String email;
     private String password;
     private String author;
-    private RoleType role;
+    private String role;
 
-    public MemberModel(MemberEntity memberEntity){
+    public MemberRqModel(MemberEntity memberEntity){
         this.memberId=memberEntity.getMemberId();
         this.email=memberEntity.getEmail();
         this.password=memberEntity.getPassword();
         this.author=memberEntity.getAuthor();
-        this.role=memberEntity.getRole();
+        this.role=memberEntity.getRole().toString();
     }
 
 }

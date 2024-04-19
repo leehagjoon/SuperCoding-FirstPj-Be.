@@ -1,5 +1,6 @@
 package com.firstpj.config.security;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.firstpj.member.model.CustomUserInfoModel;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
@@ -9,15 +10,20 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.json.BasicJsonParser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.crypto.SecretKey;
 import java.time.ZonedDateTime;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * packageName    : com.firstpj.jwt
@@ -53,6 +59,7 @@ public class JwtUtil {
        Date now = new Date();
 
         return Jwts.builder()
+                .setHeaderParam("type","jwt")
                 .setSubject(email)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
@@ -86,12 +93,15 @@ public class JwtUtil {
 
 
     public String getUserEmail(String jwtToken) {
-        Claims claims = Jwts.parser()
+
+        return  Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(jwtToken)
-                .getBody();
-        return claims.getSubject();
+                .getBody()
+                .getSubject();
 
     }
+
+
 
 }

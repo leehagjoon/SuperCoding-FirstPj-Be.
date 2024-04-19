@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

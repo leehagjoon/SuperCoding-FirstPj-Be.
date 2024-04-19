@@ -1,5 +1,7 @@
 package com.firstpj.jpa.entity;
 
+import com.firstpj.member.model.CommentsBody;
+import com.firstpj.member.model.dto.CommentsBody2;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +29,11 @@ public class CommentsEntity {
     @Column(name = "content",length = 255)
     private String content;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private LocalDateTime createAt;
+
+    public void setCommentsBody(CommentsBody commentsBody) {
+        this.content = commentsBody.getContent();
+    }
 
 }
