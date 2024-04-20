@@ -3,6 +3,7 @@ package com.firstpj.post.service.impl;
 import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.Exceptions.NotFoundException;
+import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -18,17 +22,13 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     //게시글 전체조회
-//    @Override
-//    public List<PostRqModel> findAllPosts() {
-//        List<PostEntity> postList = postRepository.findAll();
-//        return postList.stream().map(postEntity -> new PostRqModel(
-//                postEntity.getPostId(),
-//                postEntity.getMember().getMemberId(),
-//                postEntity.getTitle(),
-//                postEntity.getContent(),
-//                postEntity.getAuthor(),
-//                postEntity.getCreateAt())
-//    }
+    @Override
+    public List<PostRsModel> findAllPosts(PostRsModel rs) {
+       List<PostEntity> entities = postRepository.findAll();
+       return entities.stream()
+               .map(PostRsModel::new)
+               .collect(Collectors.toList());
+    }
 //
 //    public List<PostRqModel> findPostsByEmail(String email) {
 //        List<PostEntity> postEntities = postRepository.findByUserEmail(email);
