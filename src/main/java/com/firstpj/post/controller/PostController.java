@@ -25,8 +25,6 @@ public class PostController {
 
     private final PostService postService;
     private final PostRepository postRepository;
-    @Autowired
-    private final PostServiceImpl postServiceImpl;
 
 
     //게시물 전체 조회
@@ -69,7 +67,7 @@ public class PostController {
 //        postServiceImpl.createPost(createPostDto);
 //        return ResponseEntity.ok(Collections.singletonMap("message","게시물이 성공적으로 작성 되었습니다"));
     public String registerTitle(@RequestBody CreatePostDto  createPostDto){
-        postServiceImpl.cratePost(createPostDto);
+        postService.cratePost(createPostDto);
             return "게시물이 성공적으로 작성되었습니다.";
         }
 }
