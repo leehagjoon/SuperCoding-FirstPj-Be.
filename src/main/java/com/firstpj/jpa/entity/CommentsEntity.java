@@ -1,8 +1,7 @@
 package com.firstpj.jpa.entity;
 
 import com.firstpj.comments.model.CommentsBody;
-import com.firstpj.post.model.CreateCommentDto;
-import com.firstpj.post.model.CreatePostDto;
+import com.firstpj.comments.model.CreateCommentDto;
 import jakarta.persistence.*;
 import lombok.*;
 

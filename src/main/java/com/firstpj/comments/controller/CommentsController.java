@@ -1,13 +1,19 @@
 package com.firstpj.comments.controller;
 
 import com.firstpj.comments.model.CommentsBody;
+import com.firstpj.comments.model.CreateCommentDto;
 import com.firstpj.comments.service.CommentService;
+import com.firstpj.comments.service.impl.CommentServiceImpl;
+import com.firstpj.jpa.repository.CommentsRpository;
+import com.firstpj.post.service.impl.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.stream.events.Comment;
 import java.util.Collections;
 
 @Slf4j
@@ -17,6 +23,9 @@ import java.util.Collections;
 public class CommentsController {
 
     private CommentService commentService;
+    @Autowired
+    private  final CommentServiceImpl commentServiceImpl;
+
 
     //댓글 조회
 //    @GetMapping("/comments")
@@ -25,7 +34,11 @@ public class CommentsController {
 //        return ResponseEntity.ok().body(Map.of("comments", comments));
 //
 //    }
-
+    @PostMapping("/comments")
+    public String registerComment(@RequestBody CreateCommentDto createCommentDto) {
+        commentServiceImpl.CreateComment(createCommentDto);
+        return "댓글이 성공적으로 작성되었습니다.";
+    }
     @PutMapping("/comments/{commentsId}/updates")
     public ResponseEntity<?> updateCommentsByPathId(@PathVariable Integer commentsId, @RequestBody CommentsBody commentsBody) {
         try {
@@ -43,3 +56,7 @@ public class CommentsController {
         commentService.deleteByIdComments(id);
     }
 }
+
+
+
+

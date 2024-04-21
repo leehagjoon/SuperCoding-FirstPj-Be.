@@ -1,4 +1,4 @@
-package com.firstpj.post.model;
+package com.firstpj.comments.model;
 
 import lombok.*;
 

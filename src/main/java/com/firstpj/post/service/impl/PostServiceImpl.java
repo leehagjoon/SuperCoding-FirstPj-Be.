@@ -1,13 +1,11 @@
 package com.firstpj.post.service.impl;
 
-import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.Exceptions.NotFoundException;
 <<<<<<< HEAD
-import com.firstpj.post.model.CreateCommentDto;
 import com.firstpj.post.model.CreatePostDto;
 =======
 import com.firstpj.post.model.PostRsModel;
@@ -27,10 +25,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-@Autowired
+   @Autowired
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    private final CommentsRpository commentsRpository;
+
 
     //게시글 전체조회
     @Override
@@ -78,12 +76,6 @@ public class PostServiceImpl implements PostService {
         PostEntity entity = PostEntity.toEntity(createPostDto);
         postRepository.save(entity);
     }
-    //댓글생성
-    public void CreateComment(CreateCommentDto createCommentDto){
-
-            CommentsEntity commentsEntity = CommentsEntity.toSaveEntity(createCommentDto);
-            commentsRpository.save(commentsEntity);
-
         }
-    }
+
 
