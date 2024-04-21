@@ -5,11 +5,6 @@ import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.Exceptions.NotFoundException;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import com.firstpj.post.model.CreateCommentDto;
->>>>>>> 34ccd48d0b1266169965854e202609bdae0e2a17
 import com.firstpj.post.model.CreatePostDto;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
