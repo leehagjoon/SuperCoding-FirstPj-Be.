@@ -1,5 +1,6 @@
 package com.firstpj.jpa.entity;
 
+import com.firstpj.post.model.CreatePostDto;
 import com.firstpj.post.model.PostsBody;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
+@Data
 @Table(name = "post")
 public class PostEntity {
     @Id
@@ -19,13 +21,13 @@ public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer postId;
 
-    @Column(name = "title",length = 50)
+    @Column(name = "title", length = 50)
     private String title;
 
-    @Column(name = "content")
+    @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "author", length = 10)
+    @Column(name = "author", length = 10, nullable = false)
     private String author;
 
     @Column(name = "create_at")
@@ -35,8 +37,17 @@ public class PostEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
+
     public void setPostsBody(PostsBody postsBody) {
         this.title = postsBody.getTitle();
         this.content = postsBody.getContent();
+    }
+    public static PostEntity toEntity(CreatePostDto createPostDto){
+        PostEntity postEntity = new PostEntity();
+        postEntity.setTitle(createPostDto.getTitle());
+        postEntity.setContent(createPostDto.getContent());
+        postEntity.setAuthor(createPostDto.getAuthor());
+        return postEntity;
+
     }
 }

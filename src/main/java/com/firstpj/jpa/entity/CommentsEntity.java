@@ -1,16 +1,21 @@
 package com.firstpj.jpa.entity;
 
 import com.firstpj.comments.model.CommentsBody;
+import com.firstpj.post.model.CreateCommentDto;
+import com.firstpj.post.model.CreatePostDto;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Data
+@ToString
 @Table(name = "comments")
 public class CommentsEntity {
 
@@ -25,14 +30,25 @@ public class CommentsEntity {
     @JoinColumn(name = "member_id")
     private MemberEntity member;
 
-    @Column(name = "content",length = 255)
+    @Column(name = "content",length = 255 )
     private String content;
 
     @Column(name = "created_at")
     private LocalDateTime createAt;
+
+    public static CommentsEntity toSaveEntity(CreateCommentDto createCommentDto){
+        CommentsEntity commentsEntity =new CommentsEntity();
+        commentsEntity.setContent(createCommentDto.getContent());
+        commentsEntity.setPost(commentsEntity.getPost());
+        return commentsEntity;
+    }
 
     public void setCommentsBody(CommentsBody commentsBody) {
         this.content = commentsBody.getContent();
     }
 
 }
+
+
+
+

@@ -53,8 +53,8 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRqModel model, HttpServletResponse httpServletResponse){
 
-//        String token = jwtUtil.createToken(memberEmail);
-//        httpServletResponse.setHeader("X-AUTH-TOKEN",token);
+      // String token = jwtUtil.createToken(memberemail);
+       // httpServletResponse.setHeader("X-AUTH-TOKEN",token);
 
         return ResponseEntity.ok(memberService.login(model));
     }
