@@ -1,8 +1,12 @@
 package com.firstpj.post.controller;
 
+<<<<<<< HEAD
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.post.model.CreateCommentDto;
 import com.firstpj.post.model.CreatePostDto;
+=======
+import com.firstpj.post.model.PostRsModel;
+>>>>>>> 4e92e7b7c70daa3ab08b403326db9bcd97241afa
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
 import com.firstpj.post.service.impl.PostServiceImpl;
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -28,12 +33,15 @@ public class PostController {
     private final PostServiceImpl postServiceImpl;
 
     //게시물 전체 조회
-//    @GetMapping("/posts")
-//    public ResponseEntity<?> findAllPosts() {
-//
-//        List<PostRqModel> posts = postService.findAllPosts();
-//        return ResponseEntity.ok().body(Map.of("posts",posts));
-//    }
+    @GetMapping("/posts")
+    public ResponseEntity<?> findAllPosts(PostRsModel rs) {
+      try{
+          List<PostRsModel> models = postService.findAllPosts(rs);
+          return ResponseEntity.ok(models);
+      }catch (Exception e){
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+      }
+    }
 //
 //    //이메일을 통해 특정 게시물 검색
 //    @GetMapping("/posts/search")

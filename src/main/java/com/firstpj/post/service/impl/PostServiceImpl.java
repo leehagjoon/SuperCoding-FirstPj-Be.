@@ -6,8 +6,12 @@ import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.Exceptions.NotFoundException;
+<<<<<<< HEAD
 import com.firstpj.post.model.CreateCommentDto;
 import com.firstpj.post.model.CreatePostDto;
+=======
+import com.firstpj.post.model.PostRsModel;
+>>>>>>> 4e92e7b7c70daa3ab08b403326db9bcd97241afa
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +20,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,17 +33,13 @@ public class PostServiceImpl implements PostService {
     private final CommentsRpository commentsRpository;
 
     //게시글 전체조회
-//    @Override
-//    public List<PostRqModel> findAllPosts() {
-//        List<PostEntity> postList = postRepository.findAll();
-//        return postList.stream().map(postEntity -> new PostRqModel(
-//                postEntity.getPostId(),
-//                postEntity.getMember().getMemberId(),
-//                postEntity.getTitle(),
-//                postEntity.getContent(),
-//                postEntity.getAuthor(),
-//                postEntity.getCreateAt())
-//    }
+    @Override
+    public List<PostRsModel> findAllPosts(PostRsModel rs) {
+       List<PostEntity> entities = postRepository.findAll();
+       return entities.stream()
+               .map(PostRsModel::new)
+               .collect(Collectors.toList());
+    }
 //
 //    public List<PostRqModel> findPostsByEmail(String email) {
 //        List<PostEntity> postEntities = postRepository.findByUserEmail(email);

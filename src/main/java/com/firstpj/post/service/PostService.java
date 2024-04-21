@@ -1,5 +1,6 @@
 package com.firstpj.post.service;
 
+import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface PostService {
 
-//    List<PostRqModel> findAllPosts();
+    List<PostRsModel> findAllPosts(PostRsModel rs);
 //
 //    List<PostRqModel> findPostsByEmail(String email);
 
