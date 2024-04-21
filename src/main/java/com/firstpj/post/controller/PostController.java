@@ -62,7 +62,7 @@ public class PostController {
         postService.deleteByIdPost(id);
 
     }
-    @PostMapping("/posts")
+    @PostMapping("/post/create")
 //    public ResponseEntity<?> createPost(@RequestBody CreatePostDto createPostDto){
 //        postServiceImpl.createPost(createPostDto);
 //        return ResponseEntity.ok(Collections.singletonMap("message","게시물이 성공적으로 작성 되었습니다"));
