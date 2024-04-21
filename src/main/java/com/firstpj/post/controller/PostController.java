@@ -1,12 +1,9 @@
 package com.firstpj.post.controller;
 
-<<<<<<< HEAD
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.post.model.CreateCommentDto;
 import com.firstpj.post.model.CreatePostDto;
-=======
 import com.firstpj.post.model.PostRsModel;
->>>>>>> 4e92e7b7c70daa3ab08b403326db9bcd97241afa
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
 import com.firstpj.post.service.impl.PostServiceImpl;
