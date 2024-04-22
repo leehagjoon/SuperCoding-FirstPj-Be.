@@ -9,5 +9,9 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<PostEntity, Integer> {
 
+<<<<<<< HEAD
     List<PostEntity> findByEmail(String email);
+=======
+    List<PostEntity> findByUserEmail(String email);
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418
 }

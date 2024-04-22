@@ -19,6 +19,10 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public interface MemberService {
 
+<<<<<<< HEAD
+=======
+    void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException;
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418
 
 
 

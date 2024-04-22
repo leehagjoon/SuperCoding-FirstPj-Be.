@@ -10,8 +10,13 @@ import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.config.security.JwtUtil;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.model.*;
+<<<<<<< HEAD
 
 import com.firstpj.member.service.Exceptions.NotFoundException;
+=======
+import com.firstpj.member.model.dto.CommentsBody2;
+import com.firstpj.member.model.dto.PostRqModelDto;
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418
 import com.firstpj.member.service.MemberService;
 import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,6 +60,44 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
+<<<<<<< HEAD
+=======
+    @Transactional
+    public void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
+//        MemberEntity member = getuserFromToken(request);
+        PostEntity postEntityUpdated = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
+
+        postEntityUpdated.setPostsBody(rq);
+
+        postRepository.save(postEntityUpdated);
+
+    }
+
+    @Override
+    @Transactional
+    public void updateComments(Integer commentsId, CommentsBody commentsBody) {
+//        Integer idInt = Integer.valueOf(id);
+        CommentsEntity commentsEntityUpdated = commentsRpository.findById(commentsId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
+
+        commentsEntityUpdated.setCommentsBody(commentsBody);
+
+        commentsRpository.save(commentsEntityUpdated);
+
+//        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntityUpdated);
+    }
+
+
+    @Override
+    @CacheEvict(value = "comments",allEntries = true)
+    public void deleteById(String id) {
+        Integer idInt=Integer.parseInt(id);
+        memberRepository.deleteById(idInt);
+    }
+
+    @Override
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418
     public boolean signUp(MemberSignUp memberSignUp, RoleType roleType) throws Exception {
         memberSignUp.setRole(RoleType.USER);
 

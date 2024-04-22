@@ -10,4 +10,8 @@ import java.util.List;
 @Repository
 public interface CommentRepository extends JpaRepository<CommentsEntity, Integer> {
 
+<<<<<<< HEAD
+=======
+    List<CommentsEntity> findAllComments();
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418
 }

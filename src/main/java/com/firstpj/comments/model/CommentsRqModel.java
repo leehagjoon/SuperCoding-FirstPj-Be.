@@ -5,7 +5,14 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.PostEntity;
+<<<<<<< HEAD:src/main/java/com/firstpj/comments/model/CommentsRqModel.java
 import lombok.*;
+=======
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418:src/main/java/com/firstpj/member/model/CommentsRqModel.java
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +40,10 @@ public class CommentsRqModel {
         this.createdAt=commentsEntity.getCreateAt().format(formatter);
     }
 
+<<<<<<< HEAD:src/main/java/com/firstpj/comments/model/CommentsRqModel.java
     public CommentsRqModel(Integer commentsId, PostEntity post, String content, MemberEntity member, java.time.LocalDateTime createAt) {
+=======
+    public CommentsRqModel(Integer commentsId, PostEntity post, String content, MemberEntity member, LocalDateTime createAt) {
+>>>>>>> a5c573a56ce8e79bbc79cdf215b21323d472e418:src/main/java/com/firstpj/member/model/CommentsRqModel.java
     }
 }
