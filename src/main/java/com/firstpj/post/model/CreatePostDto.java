@@ -13,6 +13,5 @@ public class CreatePostDto {
     private String title;
     private String content;
     private String author;
-    private String email;
 
 }

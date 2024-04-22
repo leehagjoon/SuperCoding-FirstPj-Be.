@@ -1,5 +1,6 @@
 package com.firstpj.post.service.impl;
 
+import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
@@ -14,8 +15,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,11 +70,23 @@ public class PostServiceImpl implements PostService {
     }
 
      //게시물 생성
-       //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
        //String email = authentication.getName();
         public void cratePost(CreatePostDto createPostDto){
         PostEntity entity = PostEntity.toEntity(createPostDto);
         postRepository.save(entity);
+
+    //강의보고 수정
+//    public PostEntity createPost(String title,String content,String author){
+//        //MemberEntity Post =memberRepository.findById(postMemberId).orElseThrow(()->new IllegalArgumentException("유저를 찾을 수 없습니다."));
+//        return postRepository.save(
+//                PostEntity.builder()
+//                        .title(title)
+//                        .content(content)
+//                        .author(author)
+//                        .createAt(LocalDateTime.now())
+//                        .build()
+//        );
     }
         }
 

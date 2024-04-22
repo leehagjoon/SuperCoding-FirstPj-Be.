@@ -1,5 +1,6 @@
 package com.firstpj.post.service;
 
+import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.post.model.CreatePostDto;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
