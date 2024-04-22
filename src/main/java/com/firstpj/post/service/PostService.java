@@ -1,6 +1,7 @@
 package com.firstpj.post.service;
 
 import com.firstpj.post.model.CreatePostDto;
+import com.firstpj.post.model.PostRqModel;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;

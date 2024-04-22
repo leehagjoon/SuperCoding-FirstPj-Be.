@@ -1,11 +1,10 @@
 package com.firstpj.comments.controller;
 
 import com.firstpj.comments.model.CommentsBody;
+import com.firstpj.comments.model.CommentsRqModel;
 import com.firstpj.comments.model.CreateCommentDto;
 import com.firstpj.comments.service.CommentService;
 import com.firstpj.comments.service.impl.CommentServiceImpl;
-import com.firstpj.jpa.repository.CommentsRpository;
-import com.firstpj.post.service.impl.PostServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.stream.events.Comment;
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -28,12 +27,12 @@ public class CommentsController {
 
 
     //댓글 조회
-//    @GetMapping("/comments")
-//    public ResponseEntity<?> findAllComments() {
-//        List<CommentsRqModel> comments = commentService.findAllComments();
-//        return ResponseEntity.ok().body(Map.of("comments", comments));
-//
-//    }
+    @GetMapping("/comments")
+    public List<CommentsRqModel> findAllComments() {
+        List<CommentsRqModel> comments = commentServiceImpl.findAllComments();
+        return comments;
+
+    }
     @PostMapping("/comments")
     public String registerComment(@RequestBody CreateCommentDto createCommentDto) {
         commentServiceImpl.CreateComment(createCommentDto);

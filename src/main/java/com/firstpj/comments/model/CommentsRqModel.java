@@ -5,16 +5,16 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.entity.MemberEntity;
 import com.firstpj.jpa.entity.PostEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
 @JsonNaming(PropertyNamingStrategy.class)
+@NoArgsConstructor
+@ToString
+@Setter
 public class CommentsRqModel {
     private Integer commentsId;
     private Integer postId;

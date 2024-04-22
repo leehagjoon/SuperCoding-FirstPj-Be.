@@ -6,6 +6,7 @@ import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.service.Exceptions.NotFoundException;
 import com.firstpj.post.model.CreatePostDto;
+import com.firstpj.post.model.PostRqModel;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
@@ -37,15 +38,8 @@ public class PostServiceImpl implements PostService {
     }
 //
 //    public List<PostRqModel> findPostsByEmail(String email) {
-//        List<PostEntity> postEntities = postRepository.findByUserEmail(email);
-//        return postEntities.stream().map(postEntity -> new PostRqModel(
-//                postEntity.getPostId(),
-//                postEntity.getMember(),
-//                postEntity.getTitle(),
-//                postEntity.getContent(),
-//                postEntity.getAuthor(),
-//                postEntity.getCreateAt())).collect(Collectors.toList());
-//    }
+//        List<PostEntity> postEntities = postRepository.findByEmail(email);
+//        return
 
     @Override
     @Transactional

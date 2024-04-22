@@ -2,6 +2,7 @@ package com.firstpj.post.controller;
 
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.post.model.CreatePostDto;
+import com.firstpj.post.model.PostRqModel;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
 import com.firstpj.post.service.PostService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -42,7 +44,7 @@ public class PostController {
 //    @GetMapping("/posts/search")
 //    public ResponseEntity<?> findPostsByEmail(@RequestParam("author_email")String email) {
 //        List<PostRqModel> posts = postService.findPostsByEmail(email);
-//        return ResponseEntity.ok().body(Map.of("posts", posts));
+//        return
 //    }
 
     @PutMapping("/posts/{postId}/updates")

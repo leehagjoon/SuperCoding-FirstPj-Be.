@@ -1,6 +1,7 @@
 package com.firstpj.comments.service.impl;
 
 import com.firstpj.comments.model.CommentsBody;
+import com.firstpj.comments.model.CommentsRqModel;
 import com.firstpj.comments.model.CreateCommentDto;
 import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.repository.CommentsRpository;
@@ -14,21 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
     private final CommentsRpository commentRepository;
 
-//    public List<CommentsRqModel> findAllComments() {
-//        List<CommentsEntity> commentsRqModels = commentRepository.findAllComments();
-//        return commentsRqModels.stream().map(commentsEntity -> new CommentsRqModel(
-//                commentsEntity.getCommentsId(),
-//                commentsEntity.getPost(),
-//                commentsEntity.getContent(),
-//                commentsEntity.getMember(),
-//                commentsEntity.getCreateAt())).collect(Collectors.toList());
-//    }
+    public List<CommentsRqModel> findAllComments() {
+        List<CommentsEntity> commentsRqModels = commentRepository.findAll();
+        return commentsRqModels.stream().map(CommentsRqModel::new).collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
