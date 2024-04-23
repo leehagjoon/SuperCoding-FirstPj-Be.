@@ -6,7 +6,8 @@ import com.firstpj.jpa.entity.CommentsEntity;
 import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.comments.service.CommentService;
 import com.firstpj.jpa.repository.PostRepository;
-import com.firstpj.member.service.Exceptions.NotFoundException;
+
+
 import com.firstpj.post.service.impl.PostServiceImpl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +36,18 @@ public class CommentServiceImpl implements CommentService {
     public void updateComments(Integer commentsId, CommentsBody commentsBody) {
 //        Integer idInt = Integer.valueOf(id);
         CommentsEntity commentsEntityUpdated = commentRepository.findById(commentsId)
-                .orElseThrow(() -> new NotFoundException("해당 댓글을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
 
         commentsEntityUpdated.setCommentsBody(commentsBody);
 
         commentRepository.save(commentsEntityUpdated);
 
 //        return CommentMapper.INSTANCE.commentsEntityToCommentsRqModel(commentsEntityUpdated);
+    }
+
+    @Override
+    public void deleteById(String id) {
+
     }
 
 
@@ -68,12 +74,12 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.deleteById(idInt);
     }
 
-    @Override
-    @CacheEvict(value = "comments", allEntries = true)
-    public void deleteById(String id) {
-        Integer idInt = Integer.parseInt(id);
-        commentRepository.deleteById(idInt);
-    }
+//    @Override
+//    @CacheEvict(value = "comments", allEntries = true)
+//    public void deleteById(String id) {
+//        Integer idInt = Integer.parseInt(id);
+//        commentRepository.deleteById(idInt);
+//    }
 
     //댓글생성
     public void CreateComment (CreateCommentDto createCommentDto) {

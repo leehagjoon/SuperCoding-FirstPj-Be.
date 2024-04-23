@@ -11,7 +11,7 @@ import com.firstpj.config.security.JwtUtil;
 import com.firstpj.jpa.repository.PostRepository;
 import com.firstpj.member.model.*;
 
-import com.firstpj.member.service.Exceptions.NotFoundException;
+
 import com.firstpj.member.service.MemberService;
 import com.firstpj.post.model.PostsBody;
 import jakarta.servlet.http.HttpServletRequest;

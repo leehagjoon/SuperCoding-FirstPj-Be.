@@ -5,7 +5,7 @@ import com.firstpj.jpa.entity.PostEntity;
 import com.firstpj.jpa.repository.CommentsRpository;
 import com.firstpj.jpa.repository.MemberRepository;
 import com.firstpj.jpa.repository.PostRepository;
-import com.firstpj.member.service.Exceptions.NotFoundException;
+
 import com.firstpj.post.model.CreatePostDto;
 import com.firstpj.post.model.PostRsModel;
 import com.firstpj.post.model.PostsBody;
@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
     public void updatePosts(Integer postId, PostsBody rq, HttpServletRequest request) throws IllegalAccessException {
 //        MemberEntity member = getuserFromToken(request);
         PostEntity postEntityUpdated = postRepository.findById(postId)
-                .orElseThrow(() -> new NotFoundException("해당 게시물을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
 
         postEntityUpdated.setPostsBody(rq);
 
