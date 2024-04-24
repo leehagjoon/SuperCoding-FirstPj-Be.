@@ -1,6 +1,7 @@
 package com.firstpj.comments.service;
 
 import com.firstpj.comments.model.CommentsBody;
+import com.firstpj.comments.model.CreateCommentDto;
 
 public interface CommentService {
 //    List<CommentsRqModel> findAllComments();
@@ -10,4 +11,6 @@ public interface CommentService {
     public void deleteById(String id);
 
     public void deleteByIdComments(String id);
+
+    void CreateComment(CreateCommentDto createCommentDto);
 }

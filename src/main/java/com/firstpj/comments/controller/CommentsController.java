@@ -23,8 +23,6 @@ import java.util.Collections;
 public class CommentsController {
 
     private CommentService commentService;
-    @Autowired
-    private  final CommentServiceImpl commentServiceImpl;
 
 
     //댓글 조회
@@ -36,7 +34,7 @@ public class CommentsController {
 //    }
     @PostMapping("/comments")
     public String registerComment(@RequestBody CreateCommentDto createCommentDto) {
-        commentServiceImpl.CreateComment(createCommentDto);
+        commentService.CreateComment(createCommentDto);
         return "댓글이 성공적으로 작성되었습니다.";
     }
     @PutMapping("/comments/{commentsId}/updates")
@@ -53,7 +51,7 @@ public class CommentsController {
 
     @DeleteMapping("/comments/{id}")
     public void deleteCommentsByPathId(@PathVariable String id){
-        commentServiceImpl.deleteByIdComments(id);
+        commentService.deleteByIdComments(id);
     }
 }
 
